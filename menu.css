@@ -1,91 +1,269 @@
-body {
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial;
+/* Estilos generales */
+* {
     margin: 0;
     padding: 0;
-    background-color: #f0f0f0;
+    box-sizing: border-box;
 }
 
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+}
+
+/* Header */
 header {
-    background-color: #ffffff;
-    color: rgb(0, 0, 0);
-    padding: 20px;
-    text-align: center;
-}
-
-.hero {
-    background-image: url('ruta-a-tu-imagen.jpg'); /* Cambia la ruta por la de tu imagen */
-    background-size: cover;
-    height: 300px;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    color: white;
-    text-align: center;
+    padding: 1rem 2rem;
+    background-color: #fff;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
-section {
-    padding: 20px;
+.header-logo {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo-img {
+    height: 70px;
+    width: auto;
+}
+
+.logo-text h1 {
+    color: #000000;
+    font-size: 1.8rem;
+    margin-bottom: 0.2rem;
+}
+
+.logo-text p {
+    color: #000000;
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+.user-greeting {
+    font-size: 1.1rem;
+    color: #000000;
+    font-weight: bold;
+}
+
+/* Hero Section */
+.hero {
+    position: relative;
+    height: 70vh;
+    min-height: 400px;
+    overflow: hidden;
+}
+
+.hero img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+}
+
+.hero-content {
+    position: absolute;
+    top: 20%; /* Ajusta este valor para subir/bajar el texto */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
     text-align: center;
+    color: white;
+    padding: 2rem;
+    border-radius: 10px;
+    max-width: 800px;
+    width: 90%;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+.hero h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+/* Secciones de contenido */
+.discover, .know {
+    padding: 3rem 2rem;
+    text-align: center;
+    color:#000000;
+    font-size: large;
 }
 
 .discover {
-    background-color: #FFA500; /* Naranja */
+    background-color: #f7941d;
 }
 
 .know {
-    background-color: #40E0D0; /* Turquesa */
+    background-color: #3ec0c5;
 }
 
+/* Estilos para las cards con imágenes */
 .card-container {
     display: flex;
-    justify-content: space-around;
-    margin: 20px 0;
+    justify-content: center;
+    gap: 30px;
+    margin: 30px auto;
+    flex-wrap: wrap;
+    max-width: 1200px;
 }
 
 .card {
-    background-color: white;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 30%;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden; /* Para que las esquinas de la imagen coincidan con el card */
+    width: 100%;
+    max-width: 350px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
 }
 
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
+
+.card img {
+    width: 100%;
+    height: 200px; /* Altura fija para todas las imágenes */
+    object-fit: cover; /* Asegura que la imagen cubra el espacio sin distorsión */
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.card-content {
+    padding: 20px;
+    flex-grow: 1; /* Hace que el contenido ocupe el espacio restante */
+    display: flex;
+    flex-direction: column;
+}
+
+.card h4 {
+    color: #000000;
+    margin-bottom: 10px;
+    font-size: 1.3rem;
+}
+
+.card p {
+    color: #666;
+    margin-bottom: 15px;
+    flex-grow: 1; /* Empuja el botón hacia abajo */
+}
+
+.card .card-button {
+    align-self: flex-start; /* Alinea el bot*/
+}
+/* Botones */
 .more-button {
-    background-color: #007bff;
-    color: white;
+    background: linear-gradient(135deg, #ffffff, #ffffff);
+    color: rgb(0, 0, 0);
     border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
+    padding: 12px 32px;
+    border-radius: 30px;
     cursor: pointer;
     margin-top: 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
 }
 
+.more-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+/* Footer */
 footer {
-    background-color: #FFA500; /* Color de fondo naranja */
-    padding: 20px 0;
+    background-color: #f7941d;
+    color: white;
+    padding: 3rem 5rem;
     text-align: center;
 }
-.footer-content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-}
-.footer-item {
-    margin: 0 15px;
-}
-.footer-item a {
-    text-decoration: none;
-    color: white;
-}
-.footer-logo {
-    font-size: 24px;
-    font-weight: bold;
-    margin: 0 15px;
-}
-.footer-bottom {
-    margin-top: 15px;
-    font-size: 14px;
-    color: white;
+
+.footer-links {
+    margin-bottom: 1.5rem;
 }
 
+.footer-links a {
+    color: white;
+    text-decoration: none;
+    margin: 0 1rem;
+    font-weight: bold;
+    transition: opacity 0.3s;
+}
+
+.footer-links a:hover {
+    opacity: 0.8;
+}
+
+.footer-logo {
+    max-width: 300px;
+    margin: 1rem auto;
+}
+
+.footer-brand p {
+    font-weight: bold;
+    margin-top: 0.5rem;
+}
+
+.footer-copyright {
+    margin-top: 2rem;
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.8);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        text-align: center;
+        padding: 1rem;
+    }
+    
+    .header-logo {
+        flex-direction: column;
+        margin-bottom: 1rem;
+    }
+    
+    .user-greeting {
+        margin-top: 1rem;
+    }
+    
+    .hero h2 {
+        font-size: 2rem;
+    }
+    
+    .card {
+        max-width: 100%;
+    }
+}
+@media (max-width: 768px) {
+    .hero-content {
+        top: 15%;
+        padding: 1.5rem;
+    }
+    
+    .hero h2 {
+        font-size: 1.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-content {
+        top: 10%;
+        padding: 1rem;
+    }
+    
+    .hero h2 {
+        font-size: 1.5rem;
+    }
+}
