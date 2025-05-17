@@ -1,0 +1,91 @@
+body {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+}
+
+header {
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+    padding: 20px;
+    text-align: center;
+}
+
+.hero {
+    background-image: url('ruta-a-tu-imagen.jpg'); /* Cambia la ruta por la de tu imagen */
+    background-size: cover;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+}
+
+section {
+    padding: 20px;
+    text-align: center;
+}
+
+.discover {
+    background-color: #FFA500; /* Naranja */
+}
+
+.know {
+    background-color: #40E0D0; /* Turquesa */
+}
+
+.card-container {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 0;
+}
+
+.card {
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 30%;
+}
+
+.more-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+footer {
+    background-color: #FFA500; /* Color de fondo naranja */
+    padding: 20px 0;
+    text-align: center;
+}
+.footer-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.footer-item {
+    margin: 0 15px;
+}
+.footer-item a {
+    text-decoration: none;
+    color: white;
+}
+.footer-logo {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0 15px;
+}
+.footer-bottom {
+    margin-top: 15px;
+    font-size: 14px;
+    color: white;
+}
+
