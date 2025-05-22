@@ -6,9 +6,9 @@
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     line-height: 1.6;
-    color: #333;
+    color: #000000;
 }
 
 /* Header */
@@ -88,6 +88,24 @@ header {
     text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
 }
 
+.blank{
+    background-color: white;
+    padding: 1rem 0;
+    height: 50px;
+}
+
+.blank2{
+    background-color: white;
+    padding: 1rem 0;
+    height: 50px;
+}
+
+.blank3{
+    background-color: white;
+    padding: 1rem 0;
+    height: 50px;
+}
+
 /* Secciones de contenido */
 .discover, .know {
     padding: 3rem 2rem;
@@ -103,6 +121,8 @@ header {
 .know {
     background-color: #3ec0c5;
 }
+
+
 
 /* Estilos para las cards con imágenes */
 .card-container {
