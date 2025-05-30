@@ -1,41 +1,42 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Obtener todos los elementos del menú
     const menuItems = document.querySelectorAll('.menu-item');
-    const sectionImage = document.getElementById('section-image');
     
-    // Imágenes para cada sección (debes reemplazar con tus propias imágenes)
-    const sectionImages = {
-        playas: 'images/playas.jpg',
-        actividades: 'images/actividades.jpg',
-        arte: 'arte-cultura.jpg'
-    };
-    
-    // Contenidos para cada sección
-    const sectionContents = {
-        playas: document.getElementById('playas-content'),
-        actividades: document.getElementById('actividades-content'),
-        arte: document.getElementById('arte-content')
-    };
-    
+    // Agregar evento click a cada elemento del menú
     menuItems.forEach(item => {
         item.addEventListener('click', function() {
-            const section = this.getAttribute('data-section');
+            // Obtener la sección a mostrar
+            const sectionId = this.getAttribute('data-section');
+            const imagePath = this.getAttribute('data-image');
             
-            // Actualizar menú activo
+            // Remover clase active de todos los elementos del menú
             menuItems.forEach(i => i.classList.remove('active'));
+            
+            // Agregar clase active al elemento clickeado
             this.classList.add('active');
             
-            // Cambiar imagen con efecto fade
-            sectionImage.style.opacity = 0;
-            setTimeout(() => {
-                sectionImage.src = sectionImages[section];
-                sectionImage.style.opacity = 1;
-            }, 300);
+            // Cambiar la imagen
+            const sectionImage = document.getElementById('section-image');
+            sectionImage.src = imagePath;
+            sectionImage.alt = `Imagen de ${sectionId}`;
             
-            // Mostrar contenido correspondiente
-            Object.values(sectionContents).forEach(content => {
+            // Ocultar todos los contenidos
+            document.querySelectorAll('.section-content').forEach(content => {
                 content.classList.remove('active');
             });
-            sectionContents[section].classList.add('active');
+            
+            // Mostrar el contenido correspondiente
+            document.getElementById(`${sectionId}-content`).classList.add('active');
         });
     });
+    
+    // Evento para "Ver más"
+    const seeMore = document.querySelector('.see-more');
+    if (seeMore) {
+        seeMore.addEventListener('click', function() {
+            const activeSection = document.querySelector('.menu-item.active').getAttribute('data-section');
+            alert(`Mostrando más opciones de ${activeSection}`);
+            // Aquí puedes implementar la lógica para cargar más contenido
+        });
+    }
 });

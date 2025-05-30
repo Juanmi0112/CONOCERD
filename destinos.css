@@ -85,9 +85,10 @@ header {
     color: #000000;
     text-decoration: none;
     padding-right: auto; /* Posicionamiento adicional */
-    margin: 20px 0; /* Espacio arriba y abajo */
+    margin: 15px 0; /* Espacio arriba y abajo */
     text-align: left; /* Alineación */
-    padding-left: 2rem; /* Igualar al breadcrumb */
+    padding-left: 4rem; /* Igualar al breadcrumb */
+    font-size: 40px;
 }
 
 
