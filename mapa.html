@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Itinerario de Viaje</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="mapa.css" />    
+</head>
+<body>
+    <header>
+        <div class="header-logo">
+            <a href="menu.html">
+                <img src="imagenes/conoce20.png" alt="ConoceRD Logo" class="logo-img">
+            </a>
+        </div>
+        <div class="user-greeting">¡Hola, Visitante!</div>
+    </header>
+    
+    <div class="container">
+        <div id="map"></div>
+        <div class="sidebar">
+            <h2>Agregar Lugar</h2>
+            <form id="place-form">
+                <div class="form-group">
+                    <label for="place-name">Nombre del lugar:</label>
+                    <input type="text" id="place-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="visit-date">Fecha de visita:</label>
+                    <input type="date" id="visit-date" required>
+                </div>
+                <div class="form-group">
+                    <label for="place-notes">Notas:</label>
+                    <textarea id="place-notes" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Coordenadas:</label>
+                    <div class="coordinates">
+                        Lat: <span id="lat-display">0</span>, 
+                        Lng: <span id="lng-display">0</span>
+                        <input type="hidden" id="place-lat">
+                        <input type="hidden" id="place-lng">
+                    </div>
+                </div>
+                <button type="submit">Guardar Lugar</button>
+            </form>
+            <div id="places-list">
+                <h2>Mis Lugares</h2>
+                <!-- Aquí se agregarán dinámicamente los lugares -->
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-links">
+            <a href="#sobre">Sobre nosotros</a> | 
+            <a href="#contactos">Contactos</a> | 
+            <a href="#mapa">Mapa de sitios</a>
+        </div>
+        <div class="footer-brand">
+            <img src="imagenes/conoce19.png" alt="ConoceRD Logo" class="footer-logo">
+        </div>
+        <div class="footer-copyright">
+            <p>©2025 ConoceRD. All Rights Reserved</p>
+        </div>
+    </footer>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="mapa.js"></script>
+</body>
+</html>
