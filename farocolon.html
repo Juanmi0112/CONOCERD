@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faro a Colon</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f8f8;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-img {
+            height: 70px;
+            width: auto;
+        }
+
+        .user-greeting {
+            font-size: 1.1rem;
+            color: #000000;
+            font-weight: bold;
+        }
+        
+        main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .hero {
+            position: relative;
+            height: 500px;
+            overflow: hidden;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+        
+        .hero-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .hero:hover .hero-img {
+            transform: scale(1.03);
+        }
+        
+        .breadcrumb-section {
+            margin-bottom: 30px;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .breadcrumb {
+            font-size: 0.9rem;
+            color: #f7941d;
+        }
+        
+        .breadcrumb a {
+            color: #f7941d;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .breadcrumb a:hover {
+            color: #e07d0d;
+            text-decoration: underline;
+        }
+        
+        .page-title {
+            margin-top: 10px;
+            margin-left: 7.8rem;
+            font-size: 1.8rem;
+            color: #000000;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            text-align: left;
+            padding-left: 10px;
+        }
+        
+        .divider {
+            height: 2px;
+            background: #f7941d;
+            margin: 40px 0;
+            border-radius: 2px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .centered-content {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+        
+        .text-container {
+            max-width: 900px;
+            width: 100%;
+        }
+        
+        .text-block {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            border: 1px solid #eee;
+        }
+        
+        .centered-paragraph {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #444;
+            text-align: justify;
+        }
+        
+        .highlight {
+            background: #fffaf0;
+            padding: 25px;
+            border-left: 4px solid #f7941d;
+            border-radius: 0 10px 10px 0;
+            margin-top: 25px;
+            position: relative;
+            font-style: italic;
+            font-size: 1.15rem;
+        }
+        
+        .call-to-action {
+            display: inline-block;
+            font-weight: bold;
+            color: #f7941d;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        /* Contenedor del mapa principal - SOLUCIÓN IMPLEMENTADA */
+        .map-container {
+            position: relative;
+            height: 550px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            margin-bottom: 40px;
+            border: 2px solid #f0f0f0;
+            width: 100%;
+        }
+        
+        .map-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        /* Galería de Mapas - Versión Mejorada */
+        .map-gallery {
+            margin-top: 60px;
+        }
+        
+        .gallery-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #222;
+            margin-bottom: 20px;
+            position: relative;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+        
+        
+        .gallery-subtitle {
+            text-align: center;
+            font-size: 1.3rem;
+            color: #555;
+            margin-bottom: 50px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            font-style: italic;
+            line-height: 1.7;
+        }
+        
+        /* Contenedor de mapas apilados verticalmente - Versión Mejorada */
+        .maps-container {
+            display: flex;
+            flex-direction: column;
+            gap: 50px;
+            margin-bottom: 70px;
+        }
+        
+        .map-card {
+            background: #ffffff;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.12);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #f0f0f0;
+        }
+        
+        .map-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 45px rgba(0,0,0,0.18);
+        }
+        
+        .map-header {
+            height: 350px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .map-header img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .map-card:hover .map-header img {
+            transform: scale(1.08);
+        }
+        
+        .map-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent 60%);
+            display: flex;
+            align-items: flex-end;
+            padding: 30px;
+        }
+        
+        .map-title {
+            color: white;
+            font-size: 2.2rem;
+            text-shadow: 0 3px 8px rgba(0,0,0,0.8);
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            letter-spacing: 0.5px;
+        }
+        
+        .map-content {
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+        
+        .map-description {
+            color: #444;
+            font-size: 1.15rem;
+            line-height: 1.8;
+        }
+        
+        .mini-map {
+            height: 350px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #e0e0e0;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            width: 100%; /* Ancho del contenedor del mapa */
+            max-width: 1000px; /* Ancho máximo del contenedor del mapa */
+            height: 500px; /* Altura del contenedor del mapa */
+            margin: 0 auto; /* Centra el contenedor del mapa */
+        }
+        
+        .map-card:hover .mini-map {
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            border-color: #f7941d;
+        }
+        
+        .map-card .map-iframe {
+            height: 100%;
+        }
+        
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 60px 0;
+        }
+        
+        .card {
+            background: #ffffff;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+            transition: transform 0.3s ease;
+            border: 1px solid #f0f0f0;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: #f7941d;
+        }
+        
+        .card img {
+            width: 100%;
+            height: 230px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .card:hover img {
+            transform: scale(1.08);
+        }
+        
+        .card-content {
+            padding: 25px;
+        }
+        
+        .card h3 {
+            margin-bottom: 15px;
+            color: #222;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            font-size: 1.6rem;
+        }
+        
+        .card p {
+            color: #555;
+            margin-bottom: 20px;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+        
+        .card-btn {
+            display: inline-block;
+            background: #f7941d;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.3s, transform 0.2s;
+            font-size: 1.05rem;
+        }
+        
+        .card-btn:hover {
+            background: #e07d0d;
+            transform: translateY(-2px);
+        }
+        
+        .blank {
+            height: 50px;
+        }
+        
+        footer {
+            background: linear-gradient(to right, #f7941d, #e07d0d);
+            color: white;
+            padding: 50px 20px 25px;
+            text-align: center;
+            margin-top: 60px;
+        }
+        
+        .footer-links {
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 25px;
+            font-size: 1.1rem;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+            font-weight: 500;
+            position: relative;
+            padding: 5px 0;
+        }
+        
+        .footer-links a:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: white;
+            transition: width 0.3s;
+        }
+        
+        .footer-links a:hover:after {
+            width: 100%;
+        }
+        
+        .footer-brand {
+            margin: 25px 0;
+        }
+        
+        .footer-logo {
+            height: 60px;
+            margin-bottom: 15px;
+            filter: brightness(0) invert(1);
+        }
+        
+        .footer-copyright {
+            margin-top: 35px;
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.9);
+        }
+        
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 25px;
+        }
+        
+        .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            color: #f7941d;
+            font-size: 1.3rem;
+            transition: all 0.3s;
+            background: white;
+        }
+        
+        .social-icons a:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .historical-fact {
+            background: #fffaf0;
+            border-left: 5px solid #f7941d;
+            padding: 25px 25px 25px 40px;
+            margin: 35px 0;
+            border-radius: 0 12px 12px 0;
+            font-style: italic;
+            position: relative;
+            font-size: 1.15rem;
+            line-height: 1.7;
+        }
+        
+        .historical-fact:before {
+            content: "“";
+            font-size: 2rem;
+            position: absolute;
+            left: 10px;
+            top: 10px;
+            color: #f7941d;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            opacity: 1.4;
+        }
+        
+        /* Media Queries - Optimizadas */
+        @media (max-width: 1200px) {
+            .map-header {
+                height: 300px;
+            }
+            
+            .mini-map {
+                height: 300px;
+            }
+            
+            .map-title {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .hero {
+                height: 400px;
+            }
+            
+            .map-container {
+                height: 450px;
+            }
+            
+            .map-header {
+                height: 280px;
+            }
+            
+            .mini-map {
+                height: 280px;
+            }
+            
+            .gallery-title {
+                font-size: 2.2rem;
+            }
+            
+            .gallery-subtitle {
+                font-size: 1.2rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                padding: 15px;
+                text-align: center;
+            }
+            
+            .page-title {
+                margin-left: 0;
+                text-align: center;
+                font-size: 1.8rem;
+                padding: 0 15px;
+            }
+            
+            .user-greeting {
+                margin-top: 15px;
+            }
+            
+            .hero {
+                height: 350px;
+            }
+            
+            .map-container {
+                height: 350px;
+            }
+            
+            .map-header {
+                height: 220px;
+            }
+            
+            .map-title {
+                font-size: 1.8rem;
+            }
+            
+            .map-description {
+                font-size: 1.05rem;
+            }
+            
+            .mini-map {
+                height: 250px;
+            }
+            
+            .gallery-title {
+                font-size: 2rem;
+            }
+            
+            .gallery-subtitle {
+                font-size: 1.15rem;
+                padding: 0 20px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero {
+                height: 280px;
+            }
+            
+            .map-container {
+                height: 280px;
+            }
+            
+            .map-header {
+                height: 180px;
+            }
+            
+            .map-title {
+                font-size: 1.5rem;
+                padding: 0 15px;
+            }
+            
+            .map-content {
+                padding: 20px;
+            }
+            
+            .map-description {
+                font-size: 1rem;
+            }
+            
+            .mini-map {
+                height: 200px;
+                
+            }
+            
+            .gallery-title {
+                font-size: 1.8rem;
+            }
+            
+            .gallery-subtitle {
+                font-size: 1.05rem;
+                margin-bottom: 30px;
+            }
+            
+            .cards-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .card h3 {
+                font-size: 1.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-logo">
+            <a href="menu.html">
+                <img src="imagenes/conoce20.png" alt="ConoceRD Logo" class="logo-img">
+            </a>
+        </div>
+        <div class="user-greeting">¡Hola, Visitante!</div>
+    </header>
+    
+    <main>
+        <section class="hero">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Santo_Domingo.El_Faro_a_Col%C3%B3n.20170402.jpg/1200px-Santo_Domingo.El_Faro_a_Col%C3%B3n.20170402.jpg" alt="Zona Colonial" class="hero-img">
+            <h1 class="hero-title">Faro a Colon</h1>
+        </section>
+
+        <section class="breadcrumb-section">
+            <div class="breadcrumb">
+                <p><a href="menu.html">Inicio</a> &gt; <a href="destinos.html">Destinos</a> &gt; <a href="santodomingo.html">Santo Domingo</a> &gt; <a href="farocolon.html">Faro a Colon</a></p> 
+            </div>
+            <div class="page-title">
+                <h2>Faro a Colon</h2>
+            </div>
+        </section>
+        
+        <div class="divider"></div>
+
+        <div class="centered-content">
+    <div class="text-container">
+        <div class="text-block">
+            <p class="centered-paragraph">El Faro a Colón es un imponente monumento en forma de cruz ubicado en Santo Domingo Este. Inaugurado en 1992, conmemora el quinto centenario del descubrimiento de América y rinde homenaje a Cristóbal Colón con una estructura que combina elementos de faro, mausoleo y museo.</p>
+            
+            <p class="centered-paragraph">Su interior alberga exposiciones permanentes de varios países, artefactos históricos y una capilla con supuestos restos del almirante. El diseño arquitectónico proyecta una gran cruz de luz en el cielo nocturno, visible a kilómetros de distancia.</p>
+            
+            <div class="historical-fact">
+                <p>Construido con un estilo brutalista, el Faro a Colón mide más de 200 metros de largo y representa la visión de unión entre culturas del Viejo y Nuevo Mundo. Es símbolo de identidad y reflexión histórica para el país.</p>
+            </div>
+            
+            <p class="centered-paragraph">Además de su valor histórico y cultural, es uno de los principales atractivos turísticos de la ciudad y forma parte del patrimonio monumental dominicano. Su entorno incluye jardines, plazas y vistas panorámicas del Mar Caribe.</p>
+            
+            <p class="centered-paragraph highlight">De día, un espacio para aprender y explorar; de noche, una cruz de luz que ilumina el cielo. El Faro a Colón es una experiencia única en Santo Domingo. <span class="call-to-action">¡Visítalo!</span></p>
+        </div>
+    </div>
+</div>
+
+
+        <div class="divider"></div>
+         
+        <!-- Contenedor del mapa principal CORREGIDO - SOLUCIÓN IMPLEMENTADA -->
+        <div class="map-container">
+            <!-- Se eliminaron los atributos width y height -->
+            <iframe class="map-iframe" 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4685.791527624125!2d-69.86820209999999!3d18.4787101!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8eaf880cc92d29e7%3A0x554c3c92555a31b!2sFaro%20a%20Col%C3%B3n!5e1!3m2!1ses-419!2sdo!4v1751476219442!5m2!1ses-419!2sdo" 
+                    style="border:0;" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+
+        <div class="divider"></div>
+        
+        <!-- Galería de Mapas - Versión Mejorada -->
+        <section class="map-gallery">
+            <h2 class="gallery-title">Mapas Detallados del Faro a Colon</h2>
+            <p class="gallery-subtitle">Explora los lugares históricos a través de nuestros mapas interactivos de gran tamaño</p>
+            
+            <!-- Mapa - Fro a colon de Santo Domingo -->
+                <div class="map-card" id="fortaleza-ozama">
+                    <div class="map-header">
+                        <img src="https://www.centroamericacuenta.com/wp-content/uploads/2023/07/FB_Elegidas-06_B-1024x576.jpg" alt="Faro a Colon">
+                        <div class="map-overlay">
+                            <h3 class="map-title">Faro a Colon</h3>
+                        </div>
+                    </div>
+                    <div class="map-content">
+                        <p class="map-description">El Faro a Colón es un majestuoso monumento con forma de cruz ubicado en Santo Domingo Este. Inaugurado en 1992 para conmemorar los 500 años del descubrimiento de América, alberga un museo y supuestamente los restos de Cristóbal Colón. Su estructura combina elementos de mausoleo y faro, proyectando potentes haces de luz en forma de cruz hacia el cielo durante la noche.</p>
+
+                        <div class="mini-map">
+                            <iframe class="map-iframe" src="https://www.google.com/maps/embed?pb=!4v1751475907382!6m8!1m7!1sCAoSFkNJSE0wb2dLRUlDQWdJREV2UEgwRGc.!2m2!1d18.47876185831463!2d-69.86828679415838!3f158.0799992285885!4f11.095869995415299!5f0.4000000000000002" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>
+                    <div class="map-content">
+                        <div class="mini-map">
+                            <iframe class="map-iframe" src="https://www.google.com/maps/embed?pb=!4v1751476608734!6m8!1m7!1sCAoSF0NJSE0wb2dLRUlDQWdJREUxNHZPM0FF!2m2!1d18.47860662211268!2d-69.86690399982106!3f270.2250257530231!4f3.417839981312312!5f0.7820865974627469" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>        
+                    <div class="map-content">
+                        <div class="mini-map">
+                            <iframe class="map-iframe" src="https://www.google.com/maps/embed?pb=!4v1751476679081!6m8!1m7!1sCAoSF0NJSE0wb2dLRUlDQWdJRG1uLU82eEFF!2m2!1d18.47902590717792!2d-69.86909901990367!3f7.5069253725656475!4f-1.436312393053953!5f0.5793188905669914" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>
+                    <div class="map-content">
+                        <div class="mini-map">
+                            <iframe class="map-iframe" src="https://www.google.com/maps/embed?pb=!4v1751477053125!6m8!1m7!1sCAoSF0NJSE0wb2dLRUlDQWdJQ0V4UGlwaHdF!2m2!1d18.47835924170274!2d-69.86878201839828!3f180.00578403968868!4f21.744584983276752!5f0.4000000000000002" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>
+                    <div class="map-content">
+                        <div class="mini-map">
+                            <iframe class="map-iframe" src="https://www.google.com/maps/embed?pb=!4v1751477118339!6m8!1m7!1sCAoSFkNJSE0wb2dLRUlDQWdJQ0U3Y2lsR2c.!2m2!1d18.47835448967646!2d-69.86937721406039!3f83.4082433356477!4f-10.742260820552318!5f0.7820865974627469" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div> 
+                    <div class="map-content">
+                        <div class="mini-map">
+                            <iframe class="map-iframe" src="https://www.google.com/maps/embed?pb=!4v1751476972977!6m8!1m7!1sCAoSF0NJSE0wb2dLRUlDQWdJRHE4OXJObmdF!2m2!1d18.4781723633541!2d-69.86995695907801!3f219.73277572116265!4f-35.81427208479437!5f0.7820865974627469" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>                            
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <div class="divider"></div>
+        
+        <section class="blank"></section>
+        
+        <section class="cards-container">
+            <!-- Card 1 -->
+<div class="card">
+    <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/16/fd/91/48/photo4jpg.jpg?w=1200&h=1200&s=1" alt="Zona Colonial">
+    <div class="card-content">
+        <h3>Zona Colonial</h3>
+        <p>Primer asentamiento europeo permanente en América. Alberga calles adoquinadas, monumentos históricos y arquitectura colonial que narran la historia de Santo Domingo.</p>
+        <a href="zonacolonial.html" class="card-btn">Más información</a>
+    </div>
+</div>
+
+<!-- Card 2 -->
+<div class="card">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrr9HF7Xj-S_6yojP_v7WaJimZmI-V7sD8Bg&s" alt="Jardin Botanico">
+    <div class="card-content">
+        <h3>Jardín Botánico</h3>
+        <p>Un extenso espacio verde que protege la biodiversidad tropical del país. Ideal para caminatas tranquilas, observación de aves y conexión con la naturaleza.</p>
+        <a href="jardinbotanico.html" class="card-btn">Más información</a>
+    </div>
+</div>
+
+<!-- Card 3 -->
+<div class="card">
+    <img src="https://farm8.staticflickr.com/7257/7635093830_9afda750f2_b.jpg" alt="Mirador Sur">
+    <div class="card-content">
+        <h3>Mirador Sur</h3>
+        <p>Parque urbano de gran extensión en Santo Domingo, popular para trotar, andar en bicicleta y disfrutar de áreas verdes, lagos y espacios recreativos al aire libre.</p>
+        <a href="miradorsur.html" class="card-btn">Más información</a>
+    </div>
+</div>
+
+<!-- Card 4 -->
+<div class="card">
+    <img src="https://resources.diariolibre.com/images/2024/03/08/05032024-remozamiento-del-faro-a-colon-eddy-vittini05.jpg" alt="Faro a Colon">
+    <div class="card-content">
+        <h3>Faro a Colón</h3>
+        <p>Monumento en forma de cruz que honra a Cristóbal Colón. Contiene un museo y mausoleo, y proyecta haces de luz en forma de cruz que pueden verse desde el cielo.</p>
+        <a href="farocolon.html" class="card-btn">Más información</a>
+    </div>
+</div>
+        </section>
+        
+        <section class="blank"></section>
+    </main>
+    
+    <footer>
+        <div class="footer-links">
+            <a href="sobre.html">Sobre nosotros</a>
+            <a href="contactos.html">Contactos</a>
+            <a href="mapa-autocomplete.html">Mapa de sitios</a>
+            <a href="politica.html">Política de privacidad</a>
+            <a href="terminos.html">Términos de uso</a>
+        </div>
+        <div class="footer-brand">
+            <img src="imagenes\conoce19.png" alt="ConoceRD Logo" class="footer-logo">
+        </div>
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+            <a href="#"><i class="fab fa-tiktok"></i></a>
+        </div>
+        <div class="footer-copyright">
+            <p>©2025 ConoceRD. Todos los derechos reservados | Santo Domingo, República Dominicana</p>
+        </div>
+    </footer>
+
+    <script>
+        // Función para resaltar la sección al navegar
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    // Desplazamiento suave
+                    targetElement.scrollIntoView({ behavior: 'smooth' });
+                    
+                    // Resaltar la sección
+                    targetElement.classList.remove('highlight-section');
+                    void targetElement.offsetWidth; // Forzar reflow
+                    targetElement.classList.add('highlight-section');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zona Colonial de Santo Domingo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f8f8;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-img {
+            height: 70px;
+            width: auto;
+        }
+
+        .user-greeting {
+            font-size: 1.1rem;
+            color: #000000;
+            font-weight: bold;
+        }
+        
+        main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .hero {
+            position: relative;
+            height: 500px;
+            overflow: hidden;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+        
+        .hero-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .hero:hover .hero-img {
+            transform: scale(1.03);
+        }
+        
+        .breadcrumb-section {
+            margin-bottom: 30px;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .breadcrumb {
+            font-size: 0.9rem;
+            color: #f7941d;
+        }
+        
+        .breadcrumb a {
+            color: #f7941d;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .breadcrumb a:hover {
+            color: #e07d0d;
+            text-decoration: underline;
+        }
+        
+        .page-title {
+            margin-top: 10px;
+            margin-left: 7.8rem;
+            font-size: 1.8rem;
+            color: #000000;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            text-align: left;
+            padding-left: 10px;
+        }
+        
+        .divider {
+            height: 2px;
+            background: #f7941d;
+            margin: 40px 0;
+            border-radius: 2px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .centered-content {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+        
+        .text-container {
+            max-width: 900px;
+            width: 100%;
+        }
+        
+        .text-block {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            border: 1px solid #eee;
+        }
+        
+        .centered-paragraph {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #444;
+            text-align: justify;
+        }
+        
+        .highlight {
+            background: #fffaf0;
+            padding: 25px;
+            border-left: 4px solid #f7941d;
+            border-radius: 0 10px 10px 0;
+            margin-top: 25px;
+            position: relative;
+            font-style: italic;
+            font-size: 1.15rem;
+        }
+        
+        .call-to-action {
+            display: inline-block;
+            font-weight: bold;
+            color: #f7941d;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        /* Contenedor del mapa principal - SOLUCIÓN IMPLEMENTADA */
+        .map-container {
+            position: relative;
+            height: 550px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            margin-bottom: 40px;
+            border: 2px solid #f0f0f0;
+            width: 100%;
+        }
+        
+        .map-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        /* Galería de Mapas - Versión Mejorada */
+        .map-gallery {
+            margin-top: 60px;
+        }
+        
+        .gallery-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #222;
+            margin-bottom: 20px;
+            position: relative;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+        
+        
+        .gallery-subtitle {
+            text-align: center;
+            font-size: 1.3rem;
+            color: #555;
+            margin-bottom: 50px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            font-style: italic;
+            line-height: 1.7;
+        }
+        
+        /* Contenedor de mapas apilados verticalmente - Versión Mejorada */
+        .maps-container {
+            display: flex;
+            flex-direction: column;
+            gap: 50px;
+            margin-bottom: 70px;
+        }
+        
+        .map-card {
+            background: #ffffff;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.12);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #f0f0f0;
+        }
+        
+        .map-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 45px rgba(0,0,0,0.18);
+        }
+        
+        .map-header {
+            height: 350px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .map-header img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .map-card:hover .map-header img {
+            transform: scale(1.08);
+        }
+        
+        .map-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent 60%);
+            display: flex;
+            align-items: flex-end;
+            padding: 30px;
+        }
+        
+        .map-title {
+            color: white;
+            font-size: 2.2rem;
+            text-shadow: 0 3px 8px rgba(0,0,0,0.8);
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            letter-spacing: 0.5px;
+        }
+        
+        .map-content {
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+        
+        .map-description {
+            color: #444;
+            font-size: 1.15rem;
+            line-height: 1.8;
+        }
+        
+        .mini-map {
+            height: 350px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #e0e0e0;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            width: 100%; /* Ancho del contenedor del mapa */
+            max-width: 1000px; /* Ancho máximo del contenedor del mapa */
+            height: 500px; /* Altura del contenedor del mapa */
+            margin: 0 auto; /* Centra el contenedor del mapa */
+        }
+        
+        .map-card:hover .mini-map {
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            border-color: #f7941d;
+        }
+        
+        .map-card .map-iframe {
+            height: 100%;
+        }
+        
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 60px 0;
+        }
+        
+        .card {
+            background: #ffffff;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+            transition: transform 0.3s ease;
+            border: 1px solid #f0f0f0;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: #f7941d;
+        }
+        
+        .card img {
+            width: 100%;
+            height: 230px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .card:hover img {
+            transform: scale(1.08);
+        }
+        
+        .card-content {
+            padding: 25px;
+        }
+        
+        .card h3 {
+            margin-bottom: 15px;
+            color: #222;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            font-size: 1.6rem;
+        }
+        
+        .card p {
+            color: #555;
+            margin-bottom: 20px;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+        
+        .card-btn {
+            display: inline-block;
+            background: #f7941d;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.3s, transform 0.2s;
+            font-size: 1.05rem;
+        }
+        
+        .card-btn:hover {
+            background: #e07d0d;
+            transform: translateY(-2px);
+        }
+        
+        .blank {
+            height: 50px;
+        }
+        
+        footer {
+            background: linear-gradient(to right, #f7941d, #e07d0d);
+            color: white;
+            padding: 50px 20px 25px;
+            text-align: center;
+            margin-top: 60px;
+        }
+        
+        .footer-links {
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 25px;
+            font-size: 1.1rem;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+            font-weight: 500;
+            position: relative;
+            padding: 5px 0;
+        }
+        
+        .footer-links a:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: white;
+            transition: width 0.3s;
+        }
+        
+        .footer-links a:hover:after {
+            width: 100%;
+        }
+        
+        .footer-brand {
+            margin: 25px 0;
+        }
+        
+        .footer-logo {
+            height: 60px;
+            margin-bottom: 15px;
+            filter: brightness(0) invert(1);
+        }
+        
+        .footer-copyright {
+            margin-top: 35px;
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.9);
+        }
+        
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 25px;
+        }
+        
+        .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            color: #f7941d;
+            font-size: 1.3rem;
+            transition: all 0.3s;
+            background: white;
+        }
+        
+        .social-icons a:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .historical-fact {
+            background: #fffaf0;
+            border-left: 5px solid #f7941d;
+            padding: 25px 25px 25px 40px;
+            margin: 35px 0;
+            border-radius: 0 12px 12px 0;
+            font-style: italic;
+            position: relative;
+            font-size: 1.15rem;
+            line-height: 1.7;
+        }
+        
+        .historical-fact:before {
+            content: "“";
+            font-size: 2rem;
+            position: absolute;
+            left: 10px;
+            top: 10px;
+            color: #f7941d;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            opacity: 1.4;
+        }
+        
+        /* Media Queries - Optimizadas */
+        @media (max-width: 1200px) {
+            .map-header {
+                height: 300px;
+            }
+            
+            .mini-map {
+                height: 300px;
+            }
+            
+            .map-title {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .hero {
+                height: 400px;
+            }
+            
+            .map-container {
+                height: 450px;
+            }
+            
+            .map-header {
+                height: 280px;
+            }
+            
+            .mini-map {
+                height: 280px;
+            }
+            
+            .gallery-title {
+                font-size: 2.2rem;
+            }
+            
+            .gallery-subtitle {
+                font-size: 1.2rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                padding: 15px;
+                text-align: center;
+            }
+            
+            .page-title {
+                margin-left: 0;
+                text-align: center;
+                font-size: 1.8rem;
+                padding: 0 15px;
+            }
+            
+            .user-greeting {
+                margin-top: 15px;
+            }
+            
+            .hero {
+                height: 350px;
+            }
+            
+            .map-container {
+                height: 350px;
+            }
+            
+            .map-header {
+                height: 220px;
+            }
+            
+            .map-title {
+                font-size: 1.8rem;
+            }
+            
+            .map-description {
+                font-size: 1.05rem;
+            }
+            
+            .mini-map {
+                height: 250px;
+            }
+            
+            .gallery-title {
+                font-size: 2rem;
+            }
+            
+            .gallery-subtitle {
+                font-size: 1.15rem;
+                padding: 0 20px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero {
+                height: 280px;
+            }
+            
+            .map-container {
+                height: 280px;
+            }
+            
+            .map-header {
+                height: 180px;
+            }
+            
+            .map-title {
+                font-size: 1.5rem;
+                padding: 0 15px;
+            }
+            
+            .map-content {
+                padding: 20px;
+            }
+            
+            .map-description {
+                font-size: 1rem;
+            }
+            
+            .mini-map {
+                height: 200px;
+            }
+            
+            .gallery-title {
+                font-size: 1.8rem;
+            }
+            
+            .gallery-subtitle {
+                font-size: 1.05rem;
+                margin-bottom: 30px;
+            }
+            
+            .cards-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .card h3 {
+                font-size: 1.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-logo">
+            <a href="menu.html">
+                <img src="imagenes/conoce20.png" alt="ConoceRD Logo" class="logo-img">
+            </a>
+        </div>
+        <div class="user-greeting">¡Hola, Visitante!</div>
+    </header>
+    
+    <main>
+        <section class="hero">
+            <img src="https://sunsetcaribbean.com.do/wp-content/uploads/2024/07/Zona-Colonial-Santo-Domingo.png" alt="Zona Colonial" class="hero-img">
+            <h1 class="hero-title">Zona Colonial de Santo Domingo</h1>
+        </section>
+
+        <section class="breadcrumb-section">
+            <div class="breadcrumb">
+                <p><a href="menu.html">Inicio</a> &gt; <a href="destinos.html">Destinos</a> &gt; <a href="santodomingo.html">Santo Domingo</a> &gt; <a href="zonacolonial.html">Zona Colonial</a></p> 
+            </div>
+            <div class="page-title">
+                <h2>Zona Colonial</h2>
+            </div>
+        </section>
+        
+        <div class="divider"></div>
+
+        <div class="centered-content">
+            <div class="text-container">
+                <div class="text-block">
+                    <p class="centered-paragraph">Declarada Patrimonio de la Humanidad por la UNESCO, la Zona Colonial de Santo Domingo es el corazón histórico de América. Fundada en 1498 por Bartolomé Colón, esta joya arquitectónica alberga más de 300 monumentos históricos que narran cinco siglos de historia en sus calles empedradas.</p>
+                    
+                    <p class="centered-paragraph">Pasear por la Calle Las Damas, la primera calle del Nuevo Mundo, o admirar la Catedral Primada de América son experiencias que transportan a la época colonial. Cada esquina revela un tesoro arquitectónico: desde el Alcázar de Colón hasta las fortalezas que protegían la ciudad de piratas y corsarios.</p>
+                    
+                    <div class="historical-fact">
+                        <p>La Zona Colonial fue el modelo urbano que España replicó en todas sus colonias americanas. Sus edificios combinan estilos gótico, renacentista y barroco, creando un paisaje único en el Caribe.</p>
+                    </div>
+                    
+                    <p class="centered-paragraph">Hoy, este museo viviente mezcla historia con modernidad. Sus plazas coloniales están rodeadas de acogedores cafés, galerías de arte, boutiques y restaurantes donde se sirve la mejor gastronomía dominicana.</p>
+                    
+                    <p class="centered-paragraph highlight">De día, historia y cultura; de noche, música y alegría. La Zona Colonial es un viaje en el tiempo que no te puedes perder. <span class="call-to-action">¡Descúbrela!</span></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+         
+        <!-- Contenedor del mapa principal CORREGIDO - SOLUCIÓN IMPLEMENTADA -->
+        <div class="map-container">
+            <!-- Se eliminaron los atributos width y height -->
+            <iframe class="map-iframe" 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d9373.834727667912!2d-69.89150090492826!3d18.474149706412376!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8eaf883c48adf89d%3A0x41c0f77bcf6a1d04!2sCiudad%20Colonial%2C%20Santo%20Domingo!5e1!3m2!1ses!2sdo!4v1751385596756!5m2!1ses!2sdo" 
+                    style="border:0;" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+
+        <div class="divider"></div>
+        
+        <!-- Galería de Mapas - Versión Mejorada -->
+        <section class="map-gallery">
+            <h2 class="gallery-title">Mapas Detallados de la Zona Colonial</h2>
+            <p class="gallery-subtitle">Explora los lugares históricos a través de nuestros mapas interactivos de gran tamaño</p>
+            
+            <div class="maps-container">
+                <!-- Mapa 1 - Catedral Primada -->
+                <div class="map-card" id="catedral-primada">
+                    <div class="map-header">
+                        <img src="https://images.squarespace-cdn.com/content/v1/581b293d893fc0c77e4007ec/1535068168469-WEK33WPDZKIVQOBOSA35/_MG_0843.JPG" alt="Catedral Primada">
+                        <div class="map-overlay">
+                            <h3 class="map-title">Catedral Primada de América</h3>
+                        </div>
+                    </div>
+                    <div class="map-content">
+                        <p class="map-description">Primera catedral del Nuevo Mundo, construida entre 1514 y 1540. Este monumento histórico combina estilos gótico, renacentista y barroco en una impresionante obra arquitectónica. Su importancia radica en ser el primer centro religioso de América, donde se estableció la primera arquidiócesis del continente.</p>
+                        <div class="mini-map">
+                            <iframe class="map-iframe" src="https://www.google.com/maps/embed?pb=!4v1751345160744!6m8!1m7!1sCAoSFkNJSE0wb2dLRUlDQWdJQ3NvTHFpWVE.!2m2!1d18.4729896751865!2d-69.88393123019662!3f187.06974622668497!4f18.9573635282035!5f0.7820865974627469" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>
+                    <div class="map-content">
+                        <div class="mini-map">
+                            <iframe class="map-iframe" src="https://www.google.com/maps/embed?pb=!4v1751386959204!6m8!1m7!1sCAoSFENJSE0wb2dLRUlDQWdJRGF5Y0ZT!2m2!1d18.47288800358362!2d-69.88443871294695!3f78.03786547146771!4f1.7096526046434661!5f0.7820865974627469" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>        
+                    </div>          
+                    </div>
+                </div>
+                <div class="divider"></div>
+                <!-- Mapa 2 - Alcázar de Colón -->
+                <div class="map-card" id="alcazar-colon">
+                    <div class="map-header">
+                        <img src="https://enredadord.com/wp-content/uploads/2022/01/alcazar-de-colon.jpeg" alt="Alcázar de Colón">
+                        <div class="map-overlay">
+                            <h3 class="map-title">Alcázar de Colón</h3>
+                        </div>
+                    </div>
+                    <div class="map-content">
+                        <p class="map-description">Residencia de Diego Colón, hijo de Cristóbal Colón. Construido entre 1510-1514, hoy alberga el Museo Alcázar de Colón. Este palacio fue el centro del poder español en el Nuevo Mundo durante décadas. Su arquitectura refleja el estilo gótico-mudéjar y renacentista, con impresionantes salones y patios que transportan a la época colonial.</p>
+                        <div class="mini-map">
+                            <iframe class="map-iframe" src="https://www.google.com/maps/embed?pb=!4v1751386520934!6m8!1m7!1sCAoSF0NJSE0wb2dLRUlDQWdJRGF5Y0hjcVFF!2m2!1d18.47735826318016!2d-69.88302332232378!3f71.13455564282276!4f3.7037062381046866!5f0.7820865974627469" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>
+                    <div class="map-content">
+                        <div class="mini-map">
+                            <iframe class="map-iframe" src="https://www.google.com/maps/embed?pb=!4v1751388859877!6m8!1m7!1sCAoSF0NJSE0wb2dLRUlDQWdJQ0U3ZnptaGdF!2m2!1d18.47746709157937!2d-69.88275912910134!3f127.29483940779772!4f-14.343683968517794!5f0.4000000000000002" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>             
+                    </div>
+                </div>
+            </div>
+            <div class="divider"></div>
+            
+            <!-- Mapa 3 - Fortaleza de Santo Domingo -->
+                <div class="map-card" id="fortaleza-ozama">
+                    <div class="map-header">
+                        <img src="https://media.istockphoto.com/id/582273250/es/foto/fortaleza-ozama.jpg?s=612x612&w=0&k=20&c=wIgLO9xgNk1OzAL8Tr2WEm5D8vox8Y6O-QXtlNKJFwM=" alt="Alcázar de Colón">
+                        <div class="map-overlay">
+                            <h3 class="map-title">La fortaleza Ozama</h3>
+                        </div>
+                    </div>
+                    <div class="map-content">
+                        <p class="map-description">Residencia de Diego Colón, hijo de Cristóbal Colón. Construido entre 1510-1514, hoy alberga el Museo Alcázar de Colón. Este palacio fue el centro del poder español en el Nuevo Mundo durante décadas. Su arquitectura refleja el estilo gótico-mudéjar y renacentista, con impresionantes salones y patios que transportan a la época colonial.</p>
+                        <div class="mini-map">
+                            <iframe class="map-iframe" src="https://www.google.com/maps/embed?pb=!4v1751387273322!6m8!1m7!1sQ39xfPgtOTZ11d0Uhf09Hg!2m2!1d18.47255546666483!2d-69.88251520242291!3f58.44182185698727!4f1.3941273555838052!5f0.4000000000000002" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>
+                    <div class="map-content">
+                        <div class="mini-map">
+                            <iframe class="map-iframe" src="https://www.google.com/maps/embed?pb=!4v1751387909387!6m8!1m7!1sCAoSFkNJSE0wb2dLRUlDQWdJREVucUtsVmc.!2m2!1d18.47320003490803!2d-69.88170998934041!3f265.35175062304006!4f-28.027859234118814!5f0.7820865974627469" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>        
+                    <div class="map-content">
+                        <div class="mini-map">
+                            <iframe class="map-iframe" src="https://www.google.com/maps/embed?pb=!4v1751388696652!6m8!1m7!1sCAoSFkNJSE0wb2dLRUlDQWdJREU5c3FOT3c.!2m2!1d18.47309815683404!2d-69.88211268687374!3f82.65892294963379!4f6.544540248723635!5f0.7820865974627469" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>     
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <div class="divider"></div>
+        
+        <section class="blank"></section>
+        
+        <section class="cards-container">
+                    <!-- Card 1 -->
+<div class="card">
+    <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/16/fd/91/48/photo4jpg.jpg?w=1200&h=1200&s=1" alt="Zona Colonial">
+    <div class="card-content">
+        <h3>Zona Colonial</h3>
+        <p>Primer asentamiento europeo permanente en América. Alberga calles adoquinadas, monumentos históricos y arquitectura colonial que narran la historia de Santo Domingo.</p>
+        <a href="zonacolonial.html" class="card-btn">Más información</a>
+    </div>
+</div>
+
+<!-- Card 2 -->
+<div class="card">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrr9HF7Xj-S_6yojP_v7WaJimZmI-V7sD8Bg&s" alt="Jardin Botanico">
+    <div class="card-content">
+        <h3>Jardín Botánico</h3>
+        <p>Un extenso espacio verde que protege la biodiversidad tropical del país. Ideal para caminatas tranquilas, observación de aves y conexión con la naturaleza.</p>
+        <a href="jardinbotanico.html" class="card-btn">Más información</a>
+    </div>
+</div>
+
+<!-- Card 3 -->
+<div class="card">
+    <img src="https://farm8.staticflickr.com/7257/7635093830_9afda750f2_b.jpg" alt="Mirador Sur">
+    <div class="card-content">
+        <h3>Mirador Sur</h3>
+        <p>Parque urbano de gran extensión en Santo Domingo, popular para trotar, andar en bicicleta y disfrutar de áreas verdes, lagos y espacios recreativos al aire libre.</p>
+        <a href="miradorsur.html" class="card-btn">Más información</a>
+    </div>
+</div>
+
+<!-- Card 4 -->
+<div class="card">
+    <img src="https://resources.diariolibre.com/images/2024/03/08/05032024-remozamiento-del-faro-a-colon-eddy-vittini05.jpg" alt="Faro a Colon">
+    <div class="card-content">
+        <h3>Faro a Colón</h3>
+        <p>Monumento en forma de cruz que honra a Cristóbal Colón. Contiene un museo y mausoleo, y proyecta haces de luz en forma de cruz que pueden verse desde el cielo.</p>
+        <a href="farocolon.html" class="card-btn">Más información</a>
+    </div>
+</div>
+        </section>
+        
+        <section class="blank"></section>
+    </main>
+    
+    <footer>
+        <div class="footer-links">
+            <a href="sobre.html">Sobre nosotros</a>
+            <a href="contactos.html">Contactos</a>
+            <a href="mapa-autocomplete.html">Mapa de sitios</a>
+            <a href="politica.html">Política de privacidad</a>
+            <a href="terminos.html">Términos de uso</a>
+        </div>
+        <div class="footer-brand">
+            <img src="imagenes\conoce19.png" alt="ConoceRD Logo" class="footer-logo">
+        </div>
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+            <a href="#"><i class="fab fa-tiktok"></i></a>
+        </div>
+        <div class="footer-copyright">
+            <p>©2025 ConoceRD. Todos los derechos reservados | Santo Domingo, República Dominicana</p>
+        </div>
+    </footer>
+
+    <script>
+        // Función para resaltar la sección al navegar
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    // Desplazamiento suave
+                    targetElement.scrollIntoView({ behavior: 'smooth' });
+                    
+                    // Resaltar la sección
+                    targetElement.classList.remove('highlight-section');
+                    void targetElement.offsetWidth; // Forzar reflow
+                    targetElement.classList.add('highlight-section');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
