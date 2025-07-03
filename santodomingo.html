@@ -4,7 +4,462 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Destinos - Santo Domingo</title>
-    <link rel="stylesheet" href="santodomingo.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f8f8;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-img {
+            height: 70px;
+            width: auto;
+        }
+
+        .user-greeting {
+            font-size: 1.1rem;
+            color: #000000;
+            font-weight: bold;
+        }
+        
+        main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .hero {
+            position: relative;
+            height: 500px;
+            overflow: hidden;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+        
+        .hero-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .hero:hover .hero-img {
+            transform: scale(1.03);
+        }
+        
+        .hero-title {
+            position: absolute;
+            bottom: 50px;
+            left: 50px;
+            color: white;
+            font-size: 3.5rem;
+            text-shadow: 0 3px 10px rgba(0,0,0,0.8);
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+        
+        .breadcrumb-section {
+            margin-bottom: 30px;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .breadcrumb {
+            font-size: 0.9rem;
+            color: #f7941d;
+        }
+        
+        .breadcrumb a {
+            color: #f7941d;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .breadcrumb a:hover {
+            color: #e07d0d;
+            text-decoration: underline;
+        }
+        
+        .page-title {
+            margin-top: 10px;
+            margin-left: 7.8rem;
+            font-size: 1.8rem;
+            color: #000000;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            text-align: left;
+            padding-left: 10px;
+        }
+        
+        .divider {
+            height: 2px;
+            background: #f7941d;
+            margin: 40px 0;
+            border-radius: 2px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .centered-content {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+        
+        .text-container {
+            max-width: 900px;
+            width: 100%;
+        }
+        
+        .text-block {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            border: 1px solid #eee;
+        }
+        
+        .centered-paragraph {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #444;
+            text-align: justify;
+        }
+        
+        .highlight {
+            background: #fffaf0;
+            padding: 25px;
+            border-left: 4px solid #f7941d;
+            border-radius: 0 10px 10px 0;
+            margin-top: 25px;
+            position: relative;
+            font-style: italic;
+            font-size: 1.15rem;
+        }
+        
+        .call-to-action {
+            display: inline-block;
+            font-weight: bold;
+            color: #f7941d;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .map-container {
+            position: relative;
+            height: 550px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            margin-bottom: 40px;
+            border: 2px solid #f0f0f0;
+            width: 100%;
+        }
+        
+        .map-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 60px 0;
+        }
+        
+        .card {
+            background: #ffffff;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+            transition: transform 0.3s ease;
+            border: 1px solid #f0f0f0;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: #f7941d;
+            box-shadow: 0 15px 45px rgba(0,0,0,0.18);
+        }
+        
+        .card img {
+            width: 100%;
+            height: 230px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .card:hover img {
+            transform: scale(1.08);
+        }
+        
+        .card-content {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .card h3 {
+            margin-bottom: 15px;
+            color: #222;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            font-size: 1.6rem;
+        }
+        
+        .card p {
+            color: #555;
+            margin-bottom: 20px;
+            font-size: 1rem;
+            line-height: 1.6;
+            flex-grow: 1;
+        }
+        
+        .card-btn {
+            display: inline-block;
+            background: #f7941d;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.3s, transform 0.2s;
+            font-size: 1.05rem;
+            width: fit-content;
+        }
+        
+        .card-btn:hover {
+            background: #e07d0d;
+            transform: translateY(-2px);
+        }
+        
+        .blank {
+            height: 50px;
+        }
+        
+        footer {
+            background: linear-gradient(to right, #f7941d, #e07d0d);
+            color: white;
+            padding: 50px 20px 25px;
+            text-align: center;
+            margin-top: 60px;
+        }
+        
+        .footer-links {
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 25px;
+            font-size: 1.1rem;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+            font-weight: 500;
+            position: relative;
+            padding: 5px 0;
+        }
+        
+        .footer-links a:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: white;
+            transition: width 0.3s;
+        }
+        
+        .footer-links a:hover:after {
+            width: 100%;
+        }
+        
+        .footer-brand {
+            margin: 25px 0;
+        }
+        
+        .footer-logo {
+            height: 60px;
+            margin-bottom: 15px;
+            filter: brightness(0) invert(1);
+        }
+        
+        .footer-copyright {
+            margin-top: 35px;
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.9);
+        }
+        
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 25px;
+        }
+        
+        .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            color: #f7941d;
+            font-size: 1.3rem;
+            transition: all 0.3s;
+            background: white;
+            text-decoration: none !important;
+            border-bottom: none !important;
+        }
+        
+        
+        .social-icons a:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .historical-fact {
+            background: #fffaf0;
+            border-left: 5px solid #f7941d;
+            padding: 25px 25px 25px 40px;
+            margin: 35px 0;
+            border-radius: 0 12px 12px 0;
+            font-style: italic;
+            position: relative;
+            font-size: 1.15rem;
+            line-height: 1.7;
+        }
+        
+        .historical-fact:before {
+            content: "“";
+            font-size: 2rem;
+            position: absolute;
+            left: 10px;
+            top: 10px;
+            color: #f7941d;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            opacity: 1.4;
+        }
+        
+        /* Media Queries */
+        @media (max-width: 1200px) {
+            .hero {
+                height: 400px;
+            }
+            
+            .hero-title {
+                font-size: 3rem;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .hero {
+                height: 350px;
+            }
+            
+            .hero-title {
+                font-size: 2.5rem;
+                bottom: 30px;
+                left: 30px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                padding: 15px;
+                text-align: center;
+            }
+            
+            .page-title {
+                margin-left: 0;
+                text-align: center;
+                font-size: 1.8rem;
+                padding: 0 15px;
+            }
+            
+            .user-greeting {
+                margin-top: 15px;
+            }
+            
+            .hero {
+                height: 300px;
+            }
+            
+            .hero-title {
+                font-size: 2rem;
+                bottom: 20px;
+                left: 20px;
+                text-align: center;
+                width: 100%;
+                left: 0;
+            }
+            
+            .map-container {
+                height: 350px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero {
+                height: 250px;
+            }
+            
+            .hero-title {
+                font-size: 1.8rem;
+                bottom: 15px;
+            }
+            
+            .map-container {
+                height: 280px;
+            }
+            
+            .cards-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -18,7 +473,7 @@
     
     <main>
         <section class="hero">
-            <img src="imagenes\santodomingo1.jpg" alt="Imagen de República Dominicana" class="hero-img">
+            <img src="imagenes\santodomingo1.jpg" alt="Santo Domingo" class="hero-img">
         </section>
 
         <section class="breadcrumb-section">
@@ -29,93 +484,110 @@
                 <h2>Bienvenidos a Santo Domingo</h2>
             </div>
         </section>
- <div class="divider"></div>
-
-<div class="centered-content">
-    <div class="text-container">
-        <div class="text-block">
-            <p class="centered-paragraph">Santo Domingo, la capital histórica del Caribe, te espera con su fascinante mezcla de pasado colonial y vibrante modernidad. Fundada en 1496, es la ciudad europea más antigua de América, donde cada calle empedrada de la Zona Colonial cuenta una historia que merece ser explorada.</p>
-            
-            <p class="centered-paragraph">Desde los imponentes monumentos como el Alcázar de Colón hasta el bullicioso Malecón con vistas al mar Caribe, esta ciudad es un tesoro de experiencias. Descubre lagunas subterráneas en Los Tres Ojos, saborea la auténtica bandera dominicana o baila al ritmo del merengue en su animada vida nocturna. Santo Domingo no es solo un destino, es una ventana al alma de la República Dominicana.</p>
-            
-            <p class="centered-paragraph highlight">Déjate llevar por el encanto, la calidez de su gente, y la riqueza de su cultura.      <span class="call-to-action">¡Santo Domingo te sorprenderá!</span></p>
-                
-        </div>
         
-    </div>
-</div>
+        <div class="divider"></div>
 
-<div class="divider"></div>
+        <div class="centered-content">
+            <div class="text-container">
+                <div class="text-block">
+                    <p class="centered-paragraph">Santo Domingo, la capital histórica del Caribe, te espera con su fascinante mezcla de pasado colonial y vibrante modernidad. Fundada en 1496, es la ciudad europea más antigua de América, donde cada calle empedrada de la Zona Colonial cuenta una historia que merece ser explorada.</p>
+                    
+                    <p class="centered-paragraph">Desde los imponentes monumentos como el Alcázar de Colón hasta el bullicioso Malecón con vistas al mar Caribe, esta ciudad es un tesoro de experiencias. Descubre lagunas subterráneas en Los Tres Ojos, saborea la auténtica bandera dominicana o baila al ritmo del merengue en su animada vida nocturna. Santo Domingo no es solo un destino, es una ventana al alma de la República Dominicana.</p>
+                    
+                    <div class="historical-fact">
+                        <p>La ciudad de Santo Domingo fue fundada por Bartolomé Colón en 1496, convirtiéndose en la primera ciudad europea permanente en América. Su diseño urbano sirvió como modelo para muchas otras ciudades coloniales en el continente.</p>
+                    </div>
+                    
+                    <p class="centered-paragraph">La capital dominicana es un crisol donde se funden la historia, la cultura y la modernidad. En sus calles, los rascacielos conviven con monumentos centenarios, creando un paisaje urbano único en el Caribe.</p>
+                    
+                    <p class="centered-paragraph highlight">Déjate llevar por el encanto, la calidez de su gente, y la riqueza de su cultura. <span class="call-to-action">¡Santo Domingo te sorprenderá!</span></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="divider"></div>
          
- 
-       <!-- Contenedor del mapa -->
-    <div class="map-container">
-        <iframe 
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d149945.88797638676!2d-69.99288947341608!3d18.47807081099077!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8eaf89f1107ea5ab%3A0xd6c587b82715c164!2sSanto%20Domingo!5e1!3m2!1ses!2sdo!4v1750958045834!5m2!1ses!2sdo"  width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" 
-            class="map-iframe" 
-            id="map-iframe"
-            loading="lazy">
-        </iframe>
-    </div>
+        <!-- Contenedor del mapa -->
+        <div class="map-container">
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d149945.88797638676!2d-69.99288947341608!3d18.47807081099077!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8eaf89f1107ea5ab%3A0xd6c587b82715c164!2sSanto%20Domingo!5e1!3m2!1ses!2sdo!4v1750958045834!5m2!1ses!2sdo" 
+                class="map-iframe" 
+                id="map-iframe"
+                loading="lazy">
+            </iframe>
+        </div>
 
-<div class="divider"></div>
-<section class="blank"></section>
-<section class="cards-container">
-        <!-- Card 1 -->
-<div class="card">
-    <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/16/fd/91/48/photo4jpg.jpg?w=1200&h=1200&s=1" alt="Zona Colonial">
-    <div class="card-content">
-        <h3>Zona Colonial</h3>
-        <p>Primer asentamiento europeo permanente en América. Alberga calles adoquinadas, monumentos históricos y arquitectura colonial que narran la historia de Santo Domingo.</p>
-        <a href="zonacolonial.html" class="card-btn">Más información</a>
-    </div>
-</div>
+        <div class="divider"></div>
+        
+        <section class="blank"></section>
+        
+        <h2 class="page-title" style="text-align: center; margin-bottom: 40px;">Lugares Emblemáticos de Santo Domingo</h2>
+        
+        <section class="cards-container">
+            <!-- Card 1 -->
+            <div class="card">
+                <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/16/fd/91/48/photo4jpg.jpg?w=1200&h=1200&s=1" alt="Zona Colonial">
+                <div class="card-content">
+                    <h3>Zona Colonial</h3>
+                    <p>Primer asentamiento europeo permanente en América. Alberga calles adoquinadas, monumentos históricos y arquitectura colonial que narran la historia de Santo Domingo.</p>
+                    <a href="zonacolonial.html" class="card-btn">Más información</a>
+                </div>
+            </div>
 
-<!-- Card 2 -->
-<div class="card">
-    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrr9HF7Xj-S_6yojP_v7WaJimZmI-V7sD8Bg&s" alt="Jardin Botanico">
-    <div class="card-content">
-        <h3>Jardín Botánico</h3>
-        <p>Un extenso espacio verde que protege la biodiversidad tropical del país. Ideal para caminatas tranquilas, observación de aves y conexión con la naturaleza.</p>
-        <a href="jardinbotanico.html" class="card-btn">Más información</a>
-    </div>
-</div>
+            <!-- Card 2 -->
+            <div class="card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrr9HF7Xj-S_6yojP_v7WaJimZmI-V7sD8Bg&s" alt="Jardin Botanico">
+                <div class="card-content">
+                    <h3>Jardín Botánico</h3>
+                    <p>Un extenso espacio verde que protege la biodiversidad tropical del país. Ideal para caminatas tranquilas, observación de aves y conexión con la naturaleza.</p>
+                    <a href="jardinbotanico.html" class="card-btn">Más información</a>
+                </div>
+            </div>
 
-<!-- Card 3 -->
-<div class="card">
-    <img src="https://farm8.staticflickr.com/7257/7635093830_9afda750f2_b.jpg" alt="Mirador Sur">
-    <div class="card-content">
-        <h3>Mirador Sur</h3>
-        <p>Parque urbano de gran extensión en Santo Domingo, popular para trotar, andar en bicicleta y disfrutar de áreas verdes, lagos y espacios recreativos al aire libre.</p>
-        <a href="#mirador-sur" class="card-btn">Más información</a>
-    </div>
-</div>
+            <!-- Card 3 -->
+            <div class="card">
+                <img src="https://farm8.staticflickr.com/7257/7635093830_9afda750f2_b.jpg" alt="Mirador Sur">
+                <div class="card-content">
+                    <h3>Mirador Sur</h3>
+                    <p>Parque urbano de gran extensión en Santo Domingo, popular para trotar, andar en bicicleta y disfrutar de áreas verdes, lagos y espacios recreativos al aire libre.</p>
+                    <a href="miradorsur.html" class="card-btn">Más información</a>
+                </div>
+            </div>
 
-<!-- Card 4 -->
-<div class="card">
-    <img src="https://resources.diariolibre.com/images/2024/03/08/05032024-remozamiento-del-faro-a-colon-eddy-vittini05.jpg" alt="Faro a Colon">
-    <div class="card-content">
-        <h3>Faro a Colón</h3>
-        <p>Monumento en forma de cruz que honra a Cristóbal Colón. Contiene un museo y mausoleo, y proyecta haces de luz en forma de cruz que pueden verse desde el cielo.</p>
-        <a href="farocolon.html" class="card-btn">Más información</a>
-    </div>
-</div>
-
-    </section>
-    <section class="blank"></section>
+            <!-- Card 4 -->
+            <div class="card">
+                <img src="https://resources.diariolibre.com/images/2024/03/08/05032024-remozamiento-del-faro-a-colon-eddy-vittini05.jpg" alt="Faro a Colon">
+                <div class="card-content">
+                    <h3>Faro a Colón</h3>
+                    <p>Monumento en forma de cruz que honra a Cristóbal Colón. Contiene un museo y mausoleo, y proyecta haces de luz en forma de cruz que pueden verse desde el cielo.</p>
+                    <a href="farocolon.html" class="card-btn">Más información</a>
+                </div>
+            </div>
+        </section>
+        
+        <section class="blank"></section>
     </main>
     
     <footer>
         <div class="footer-links">
-            <a href="sobre.html">Sobre nosotros</a> | 
-            <a href="contactos.html">Contactos</a> | 
-            <a href="mapa.html">Mapa de sitios</a>
+            <a href="sobre.html">Sobre nosotros</a>
+            <a href="contactos.html">Contactos</a>
+            <a href="mapa-autocomplete.html">Mapa de sitios</a>
+            <a href="politica.html">Política de privacidad</a>
+            <a href="terminos.html">Términos de uso</a>
         </div>
         <div class="footer-brand">
             <img src="imagenes\conoce19.png" alt="ConoceRD Logo" class="footer-logo">
         </div>
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+            <a href="#"><i class="fab fa-tiktok"></i></a>
+        </div>
         <div class="footer-copyright">
-            <p>©2025 ConoceRD. Todos los derechos reservados</p>
+            <p>©2025 ConoceRD. Todos los derechos reservados | Santo Domingo, República Dominicana</p>
         </div>
     </footer>
 </body>

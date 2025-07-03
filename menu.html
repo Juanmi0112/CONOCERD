@@ -3,124 +3,672 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="menu.css">
-    <title>ConoceRD - Menu</title>
-</head> 
+    <title>ConoceRD - Descubre República Dominicana</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f8f8;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-img {
+            height: 70px;
+            width: auto;
+        }
+
+        .user-greeting {
+            font-size: 1.1rem;
+            color: #000000;
+            font-weight: bold;
+        }
+        
+        main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .hero {
+            position: relative;
+            height: 500px;
+            overflow: hidden;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+        
+        .hero-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .hero:hover .hero-img {
+            transform: scale(1.03);
+        }
+        
+        .hero-title {
+            position: absolute;
+            bottom: 50px;
+            left: 50px;
+            color: white;
+            font-size: 3.5rem;
+            text-shadow: 0 3px 10px rgba(0,0,0,0.8);
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+        
+        .destinos-container {
+            margin: 40px 0;
+        }
+        
+        .destinos-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #222;
+            margin-bottom: 20px;
+            position: relative;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+        
+        .destinos-subtitle {
+            text-align: center;
+            font-size: 1.3rem;
+            color: #555;
+            margin-bottom: 50px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            font-style: italic;
+            line-height: 1.7;
+        }
+        
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .destino-card {
+            background: #ffffff;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+            transition: transform 0.3s ease;
+            border: 1px solid #f0f0f0;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .destino-card:hover {
+            transform: translateY(-10px);
+            border-color: #f7941d;
+            box-shadow: 0 15px 45px rgba(0,0,0,0.18);
+        }
+        
+        .destino-card img {
+            width: 100%;
+            height: 230px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .destino-card:hover img {
+            transform: scale(1.08);
+        }
+        
+        .card-content {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .destino-card h3 {
+            margin-bottom: 15px;
+            color: #222;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            font-size: 1.6rem;
+        }
+        
+        .destino-card p {
+            color: #555;
+            margin-bottom: 20px;
+            font-size: 1rem;
+            line-height: 1.6;
+            flex-grow: 1;
+        }
+        
+        .ver-mas {
+            display: inline-block;
+            background: #f7941d;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.3s, transform 0.2s;
+            font-size: 1.05rem;
+            text-align: center;
+            margin-top: auto;
+            width: fit-content;
+        }
+        
+        .ver-mas:hover {
+            background: #e07d0d;
+            transform: translateY(-2px);
+        }
+        
+        /* Testimonials */
+        .testimonials {
+            background: linear-gradient(rgba(13, 59, 33, 0.9), rgba(13, 59, 33, 0.9)), url('https://images.unsplash.com/photo-1587330979470-3595ac045ab0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80');
+            background-size: cover;
+            background-attachment: fixed;
+            padding: 4rem 5%;
+            color: white;
+            text-align: center;
+            margin: 4rem 0;
+            border-radius: 15px;
+        }
+        
+        .testimonials h2 {
+            margin-bottom: 2rem;
+            font-size: 2.5rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .testimonial-container {
+            display: flex;
+            gap: 30px;
+            overflow-x: auto;
+            padding: 20px 0;
+            scrollbar-width: thin;
+        }
+        
+        .testimonial {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 25px;
+            border-radius: 15px;
+            min-width: 300px;
+            max-width: 400px;
+            border: 1px solid rgba(255,255,255,0.2);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .testimonial p {
+            font-style: italic;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .author-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        .author-name {
+            font-weight: 700;
+        }
+        
+        /* Newsletter */
+        .newsletter {
+            background: #f0f0f0;
+            padding: 4rem 5%;
+            text-align: center;
+            margin: 4rem 0;
+            border-radius: 15px;
+        }
+        
+        .newsletter-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .newsletter h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #222;
+        }
+        
+        .newsletter p {
+            color: #555;
+            margin-bottom: 2rem;
+        }
+        
+        .newsletter-form {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .newsletter-form input {
+            padding: 12px 20px;
+            border: 1px solid #ddd;
+            border-radius: 50px;
+            flex-grow: 1;
+            max-width: 350px;
+            font-size: 1rem;
+        }
+        
+        .newsletter-form button {
+            background: #f7941d;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+        
+        .newsletter-form button:hover {
+            background: #e07d0d;
+        }
+        
+        .divider {
+            height: 2px;
+            background: #f7941d;
+            margin: 40px 0;
+            border-radius: 2px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .blank {
+            height: 50px;
+        }
+        
+        footer {
+            background: linear-gradient(to right, #f7941d, #e07d0d);
+            color: white;
+            padding: 50px 20px 25px;
+            text-align: center;
+            margin-top: 60px;
+        }
+        
+        .footer-links {
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 25px;
+            font-size: 1.1rem;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+            font-weight: 500;
+            position: relative;
+            padding: 5px 0;
+        }
+        
+        .footer-links a:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: white;
+            transition: width 0.3s;
+        }
+        
+        .footer-links a:hover:after {
+            width: 100%;
+        }
+        
+        .footer-brand {
+            margin: 25px 0;
+        }
+        
+        .footer-logo {
+            height: 60px;
+            margin-bottom: 15px;
+            filter: brightness(0) invert(1);
+        }
+        
+        .footer-copyright {
+            margin-top: 35px;
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.9);
+        }
+        
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 25px;
+        }
+        
+        .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            color: #f7941d;
+            font-size: 1.3rem;
+            transition: all 0.3s;
+            background: white;
+            text-decoration: none !important;
+            border-bottom: none !important;
+        }
+        
+        
+        .social-icons a:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        /* Media Queries */
+        @media (max-width: 1200px) {
+            .hero {
+                height: 400px;
+            }
+            
+            .hero-title {
+                font-size: 3rem;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .hero {
+                height: 350px;
+            }
+            
+            .hero-title {
+                font-size: 2.5rem;
+                bottom: 30px;
+                left: 30px;
+            }
+            
+            .destinos-title {
+                font-size: 2.2rem;
+            }
+            
+            .destinos-subtitle {
+                font-size: 1.2rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                padding: 15px;
+                text-align: center;
+            }
+            
+            .user-greeting {
+                margin-top: 15px;
+            }
+            
+            .hero {
+                height: 300px;
+            }
+            
+            .hero-title {
+                font-size: 2rem;
+                bottom: 20px;
+                left: 20px;
+                text-align: center;
+                width: 100%;
+                left: 0;
+            }
+            
+            .destinos-title {
+                font-size: 2rem;
+            }
+            
+            .destinos-subtitle {
+                font-size: 1.15rem;
+                padding: 0 20px;
+            }
+            
+            .testimonial-container {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero {
+                height: 250px;
+            }
+            
+            .hero-title {
+                font-size: 1.8rem;
+                bottom: 15px;
+            }
+            
+            .destinos-title {
+                font-size: 1.8rem;
+            }
+            
+            .destinos-subtitle {
+                font-size: 1.05rem;
+                margin-bottom: 30px;
+            }
+            
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
 <body>
     <header>
         <div class="header-logo">
             <a href="menu.html">
-            <img src="imagenes/conoce20.png"  alt="ConoceRD Logo" class="logo-img">
-            <div class="logo-text">
-            </div>
+                <img src="imagenes/conoce20.png" alt="ConoceRD Logo" class="logo-img">
+            </a>
         </div>
-        </a>
         <div class="user-greeting">¡Hola, Visitante!</div>
     </header>
     
     <main>
         <section class="hero">
-            <div class="hero-content">
-                <h2>¡Conoce nuestra República Dominicana!</h2>
-            </div>
-            <img src="imagenes\fotohero.jpg" alt="Imagen de República Dominicana"> <!-- Ruta relativa recomendada -->
+            <img src="imagenes\fotohero.jpg" alt="Imagen de República Dominicana" class="hero-img">
+            <div class="hero-title">¡Conoce nuestra República Dominicana!</div>
         </section>
 
-        <section class="blank"> 
-        </section>
-    
-        
-        <section class="discover">
-    <h2>Descubre lo que te espera</h2>
-    <div class="card-container"> 
-        <a href="destinos.html" class="card-link">
-            <div class="card">
-                <img src="imagenes/destinos1.jpeg" alt="Destinos jpg">
-                <h4>Destinos</h4>
-                <p>Explora los lugares más emblemáticos</p>
-            </div>
-        </a>
-    
-        <a href="cosasquehacer.html" class="card-link">
-            <div class="card">
-                <img src="imagenes/cosasquehacer.webp" alt="cosas que hacer jpg">
-                <h4>Cosas que hacer</h4>
-                <p>Actividades y experiencias únicas</p>
-            </div>
-        </a>
-
-        <a href="mapa-autocomplete.html" class="card-link">
-            <div class="card">
-                <img src="imagenes/Planeartuviaje.jpg" alt="planea tu visita jpg">
-                <h4>Planear tu visita</h4>
-                <p>Consejos para tu viaje perfecto</p>
-            </div>
-        </a>
-        
-        <a href="mapa.html" class="card-link">
-            <div class="card">
-                <img src="imagenes\itinerario.jpeg" alt="Itinerario jpg">
-                <h4>Mi itinerario</h4>
-                <p>Sabores típicos de la isla</p>
-            </div>
-        </a>
-    </div>
-
-    <button class="more-button">Ver más</button>
-</section>
-
-        <section class="blank2"> 
-        </section>
-        
-        <section class="know">
-            <h2>Conoce lo que te apasiona</h2>
-            <div class="card-container">
-                <a href="destinos.html" class="card-link">
-                <div class="card">
-                    <img src="imagenes\Aventuras.png" alt="Aventuras y actividadses jpg">
-                    <h4>Aventuras y actividadses</h4>
-                    <p>Tradiciones y patrimonio dominicano</p>
+        <section class="destinos-container">
+            <h2 class="destinos-title">Descubre lo que te espera</h2>
+            <p class="destinos-subtitle">Explora los mejores lugares, actividades y experiencias que la República Dominicana tiene para ofrecerte</p>
+            
+            <div class="cards-grid">
+                <div class="destino-card">
+                    <img src="imagenes\destinos1.jpeg" alt="Destinos">
+                    <div class="card-content">
+                        <h3>Destinos</h3>
+                        <p>Explora los lugares más emblemáticos de República Dominicana, desde playas paradisíacas hasta ciudades históricas.</p>
+                        <a href="destinos.html" class="ver-mas">Explorar</a>
+                    </div>
                 </div>
                 
+                <div class="destino-card">
+                    <img src="imagenes\cosasquehacer.webp" alt="Cosas que hacer">
+                    <div class="card-content">
+                        <h3>Cosas que hacer</h3>
+                        <p>Actividades y experiencias únicas para disfrutar al máximo de tu visita a la isla caribeña.</p>
+                        <a href="cosasquehacer.html" class="ver-mas">Descubrir</a>
+                    </div>
+                </div>
 
-                <a href="destinos.html" class="card-link">
-                <div class="card">
-                    <img src="imagenes\atraccionesnaturales.jpg" alt="Atracciones naturales jpg">
-                    <h4>Atracciones naturales</h4>
-                    <p>Sabores típicos de la isla</p>
+                <div class="destino-card">
+                    <img src="imagenes\Planeartuviaje.jpg" alt="Planea tu visita">
+                    <div class="card-content">
+                        <h3>Planear tu visita</h3>
+                        <p>Consejos prácticos y toda la información necesaria para organizar tu viaje perfecto.</p>
+                        <a href="mapa-autocomplete.html" class="ver-mas">Planificar</a>
+                    </div>
                 </div>
                 
-
-                <a href="destinos.html" class="card-link">
-                <div class="card">
-                    <img src="imagenes\turismohistorico.jpg" alt="Turismo historico jpg">
-                    <h4>Turismo historico</h4>
-                    <p>Bellezas naturales del país</p>
+                <div class="destino-card">
+                    <img src="https://images.unsplash.com/photo-1506197603052-3cc9c3a201bd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Itinerario">
+                    <div class="card-content">
+                        <h3>Mi itinerario</h3>
+                        <p>Crea tu ruta personalizada por la isla y guarda tus lugares favoritos para visitar.</p>
+                        <a href="mapa.html" class="ver-mas">Crear</a>
+                    </div>
                 </div>
-                </div>
-                </a>
-
-            <button class="more-button">Ver más</button>
+            </div>
         </section>
+        
+        <div class="divider"></div>
+        
+        <section class="destinos-container">
+            <h2 class="destinos-title">Conoce lo que te apasiona</h2>
+            <p class="destinos-subtitle">Descubre las diferentes experiencias que puedes vivir en República Dominicana según tus intereses</p>
+            
+            <div class="cards-grid">
+                <div class="destino-card">
+                    <img src="imagenes\Aventuras.png" alt="Aventuras y actividades">
+                    <div class="card-content">
+                        <h3>Aventuras y actividades</h3>
+                        <p>Descubre emocionantes actividades al aire libre como senderismo, rafting y excursiones.</p>
+                        <a href="destinos.html" class="ver-mas">Explorar</a>
+                    </div>
+                </div>
+                
+                <div class="destino-card">
+                    <img src="imagenes\atraccionesnaturales.jpg" alt="Atracciones naturales">
+                    <div class="card-content">
+                        <h3>Atracciones naturales</h3>
+                        <p>Explora las maravillas naturales de la isla: playas, montañas, ríos y parques nacionales.</p>
+                        <a href="destinos.html" class="ver-mas">Descubrir</a>
+                    </div>
+                </div>
+                
+                <div class="destino-card">
+                    <img src="imagenes\turismohistorico.jpg" alt="Turismo histórico">
+                    <div class="card-content">
+                        <h3>Turismo histórico</h3>
+                        <p>Sumérgete en la rica historia dominicana visitando museos, monumentos y zonas coloniales.</p>
+                        <a href="destinos.html" class="ver-mas">Conocer</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="testimonials">
+            <h2>Lo que dicen nuestros visitantes</h2>
+            <div class="testimonial-container">
+                <div class="testimonial">
+                    <p>"República Dominicana superó todas mis expectativas. Playas increíbles, gente amable y una cultura fascinante. ¡Volveré pronto!"</p>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="María López" class="author-img">
+                        <div>
+                            <div class="author-name">María López</div>
+                            <div>Desde España</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial">
+                    <p>"La experiencia en la isla fue mágica. Desde los paisajes de Jarabacoa hasta las playas de Punta Cana, cada lugar tiene algo especial."</p>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/men/54.jpg" alt="Carlos Martínez" class="author-img">
+                        <div>
+                            <div class="author-name">Carlos Martínez</div>
+                            <div>Desde México</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial">
+                    <p>"La gastronomía dominicana es una delicia. El mangú, el sancocho y el mofongo son platos que nunca olvidaré. ¡Volveré por más!"</p>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Laura Fernández" class="author-img">
+                        <div>
+                            <div class="author-name">Laura Fernández</div>
+                            <div>Desde Argentina</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="newsletter">
+            <div class="newsletter-content">
+                <h3>Recibe nuestras ofertas especiales</h3>
+                <p>Suscríbete a nuestro boletín y recibe consejos de viaje, promociones exclusivas y las últimas noticias sobre República Dominicana.</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Tu correo electrónico" required>
+                    <button type="submit">Suscribirse</button>
+                </form>
+            </div>
+        </section>
+        
+        <section class="blank"></section>
     </main>
-
-    <section class="blank3"> 
-    </section>
     
     <footer>
         <div class="footer-links">
-            <a href="#sobre">Sobre nosotros</a> | 
-            <a href="#contactos">Contactos</a> | 
-            <a href="#mapa">Mapa de sitios</a>
+            <a href="sobre.html">Sobre nosotros</a>
+            <a href="contactos.html">Contactos</a>
+            <a href="mapa-autocomplete.html">Mapa de sitios</a>
+            <a href="politica.html">Política de privacidad</a>
+            <a href="terminos.html">Términos de uso</a>
         </div>
         <div class="footer-brand">
-            <img src="imagenes\conoce19.png" alt="ConoceRD Logo" class="footer-logo">
+            <img src="imagenes/conoce19.png" alt="ConoceRD Logo" class="footer-logo">
+        </div>
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+            <a href="#"><i class="fab fa-tiktok"></i></a>
         </div>
         <div class="footer-copyright">
-            <p>©2025 ConoceRD. All Rights Reserved</p>
+            <p>©2025 ConoceRD. Todos los derechos reservados | Santo Domingo, República Dominicana</p>
         </div>
     </footer>
 </body>
 </html>
-
-   

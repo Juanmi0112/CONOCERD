@@ -4,7 +4,412 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ConoceRD - Destinos</title>
-    <link rel="stylesheet" href="destinos.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f8f8;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-img {
+            height: 70px;
+            width: auto;
+        }
+
+        .user-greeting {
+            font-size: 1.1rem;
+            color: #000000;
+            font-weight: bold;
+        }
+        
+        main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .hero {
+            position: relative;
+            height: 500px;
+            overflow: hidden;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+        
+        .hero-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .hero:hover .hero-img {
+            transform: scale(1.03);
+        }
+        
+        .hero-title {
+            position: absolute;
+            bottom: 50px;
+            left: 50px;
+            color: white;
+            font-size: 3.5rem;
+            text-shadow: 0 3px 10px rgba(0,0,0,0.8);
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+        
+        .breadcrumb-section {
+            margin-bottom: 30px;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .breadcrumb {
+            font-size: 0.9rem;
+            color: #f7941d;
+        }
+        
+        .breadcrumb a {
+            color: #f7941d;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .breadcrumb a:hover {
+            color: #e07d0d;
+            text-decoration: underline;
+        }
+        
+        .page-title {
+            margin-top: 10px;
+            margin-left: 7.8rem;
+            font-size: 1.8rem;
+            color: #000000;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            text-align: left;
+            padding-left: 10px;
+        }
+        
+        .divider {
+            height: 2px;
+            background: #f7941d;
+            margin: 40px 0;
+            border-radius: 2px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .destinos-container {
+            margin: 40px 0;
+        }
+        
+        .destinos-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #222;
+            margin-bottom: 20px;
+            position: relative;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+        
+        .destinos-subtitle {
+            text-align: center;
+            font-size: 1.3rem;
+            color: #555;
+            margin-bottom: 50px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            font-style: italic;
+            line-height: 1.7;
+        }
+        
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .destino-card {
+            background: #ffffff;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+            transition: transform 0.3s ease;
+            border: 1px solid #f0f0f0;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .destino-card:hover {
+            transform: translateY(-10px);
+            border-color: #f7941d;
+            box-shadow: 0 15px 45px rgba(0,0,0,0.18);
+        }
+        
+        .destino-card img {
+            width: 100%;
+            height: 230px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .destino-card:hover img {
+            transform: scale(1.08);
+        }
+        
+        .card-content {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .destino-card h3 {
+            margin-bottom: 15px;
+            color: #222;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            font-size: 1.6rem;
+        }
+        
+        .destino-card p {
+            color: #555;
+            margin-bottom: 20px;
+            font-size: 1rem;
+            line-height: 1.6;
+            flex-grow: 1;
+        }
+        
+        .ver-mas {
+            display: inline-block;
+            background: #f7941d;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.3s, transform 0.2s;
+            font-size: 1.05rem;
+            text-align: center;
+            margin-top: auto;
+            width: fit-content;
+        }
+        
+        .ver-mas:hover {
+            background: #e07d0d;
+            transform: translateY(-2px);
+        }
+        
+        .blank {
+            height: 50px;
+        }
+        
+        footer {
+            background: linear-gradient(to right, #f7941d, #e07d0d);
+            color: white;
+            padding: 50px 20px 25px;
+            text-align: center;
+            margin-top: 60px;
+        }
+        
+        .footer-links {
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 25px;
+            font-size: 1.1rem;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+            font-weight: 500;
+            position: relative;
+            padding: 5px 0;
+        }
+        
+        .footer-links a:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: white;
+            transition: width 0.3s;
+        }
+        
+        .footer-links a:hover:after {
+            width: 100%;
+        }
+        
+        .footer-brand {
+            margin: 25px 0;
+        }
+        
+        .footer-logo {
+            height: 60px;
+            margin-bottom: 15px;
+            filter: brightness(0) invert(1);
+        }
+        
+        .footer-copyright {
+            margin-top: 35px;
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.9);
+        }
+        
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 25px;
+        }
+        
+       .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            color: #f7941d;
+            font-size: 1.3rem;
+            transition: all 0.3s;
+            background: white;
+            text-decoration: none !important;
+            border-bottom: none !important;
+        }
+        
+        .social-icons a:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        /* Media Queries */
+        @media (max-width: 1200px) {
+            .hero {
+                height: 400px;
+            }
+            
+            .hero-title {
+                font-size: 3rem;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .hero {
+                height: 350px;
+            }
+            
+            .hero-title {
+                font-size: 2.5rem;
+                bottom: 30px;
+                left: 30px;
+            }
+            
+            .destinos-title {
+                font-size: 2.2rem;
+            }
+            
+            .destinos-subtitle {
+                font-size: 1.2rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                padding: 15px;
+                text-align: center;
+            }
+            
+            .page-title {
+                margin-left: 0;
+                text-align: center;
+                font-size: 1.8rem;
+                padding: 0 15px;
+            }
+            
+            .user-greeting {
+                margin-top: 15px;
+            }
+            
+            .hero {
+                height: 300px;
+            }
+            
+            .hero-title {
+                font-size: 2rem;
+                bottom: 20px;
+                left: 20px;
+            }
+            
+            .destinos-title {
+                font-size: 2rem;
+            }
+            
+            .destinos-subtitle {
+                font-size: 1.15rem;
+                padding: 0 20px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero {
+                height: 250px;
+            }
+            
+            .hero-title {
+                font-size: 1.8rem;
+                bottom: 15px;
+                left: 15px;
+            }
+            
+            .destinos-title {
+                font-size: 1.8rem;
+            }
+            
+            .destinos-subtitle {
+                font-size: 1.05rem;
+                margin-bottom: 30px;
+            }
+            
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -18,23 +423,29 @@
     
     <main>
         <section class="hero">
-            <img src="imagenes\destinos.jpg" alt="Imagen de República Dominicana" class="hero-img">
+            <img src="imagenes/destinos.jpg" alt="Imagen de República Dominicana" class="hero-img">
         </section>
 
         <section class="breadcrumb-section">
             <div class="breadcrumb">
-                <p><a href="menu.html">Inicio</a> > Destinos</p>
+                <p><a href="menu.html">Inicio</a> &gt; <a href="destinos.html">Destinos</a></p> 
+            </div>
+            <div class="page-title">
                 <h2>Destinos</h2>
             </div>
         </section>
 
-        <section class="destinos-container">
+        <div class="divider"></div>
 
+        <section class="destinos-container">
+            <h2 class="destinos-title">Explora Nuestros Destinos</h2>
+            <p class="destinos-subtitle">Descubre la diversidad de experiencias que la República Dominicana tiene para ofrecerte, desde playas paradisíacas hasta montañas imponentes y ciudades históricas</p>
+            
             <div class="cards-grid">
                 <!-- Santo Domingo -->
-                <div class="card-container">
-                    <div class="destino-card">
-                        <img src="imagenes\santodomingo.jpg" alt="Santo Domingo">
+                <div class="destino-card">
+                    <img src="imagenes\santodomingo1.jpg" alt="Santo Domingo">
+                    <div class="card-content">
                         <h3>Santo Domingo</h3>
                         <p>Destino y capital de la República Dominicana, destaca por su historia colonial y su zona declarada Patrimonio de la Humanidad por la UNESCO.</p>
                         <a href="santodomingo.html" class="ver-mas">Ver más</a>
@@ -42,9 +453,9 @@
                 </div>
 
                 <!-- La Romana -->
-                <div class="card-container">
-                    <div class="destino-card">
-                        <img src="imagenes\laromana.jpg" alt="La Romana">
+                <div class="destino-card">
+                    <img src="imagenes\laromana.jpg" alt="La Romana">
+                    <div class="card-content">
                         <h3>La Romana</h3>
                         <p>Ver el lujo y tranquilidad en La Romana, hogar del famoso resort Casa de Campo. Disfruta de campos de golf de clase mundial.</p>
                         <a href="laromana.html" class="ver-mas">Ver más</a>
@@ -52,9 +463,9 @@
                 </div>
 
                 <!-- Santiago -->
-                <div class="card-container">
-                    <div class="destino-card">
-                        <img src="imagenes\santiago.webp" alt="Santiago">
+                <div class="destino-card">
+                    <img src="imagenes\santiago.webp" alt="Santiago">
+                    <div class="card-content">
                         <h3>Santiago</h3>
                         <p>Conocida como la "Ciudad Corazón", Santiago ofrece historia, cultura y vida urbana. Visita el Monumento a los Héroes de la Restauración.</p>
                         <a href="santiago.html" class="ver-mas">Ver más</a>
@@ -62,9 +473,9 @@
                 </div>
 
                 <!-- La Altagracia -->
-                <div class="card-container">
-                    <div class="destino-card">
-                        <img src="imagenes\laaltagracia.webp" alt="La Altagracia">
+                <div class="destino-card">
+                    <img src="imagenes\laaltagracia.webp" alt="La Altagracia">
+                    <div class="card-content">
                         <h3>La Altagracia</h3>
                         <p>Sorpréndete con el paraíso de Punta Cana, famosa por sus playas de arena blanca, hoteles todo incluido, y actividades acuáticas y turísticas.</p>
                         <a href="laaltagracia.html" class="ver-mas">Ver más</a>
@@ -72,9 +483,9 @@
                 </div>
 
                 <!-- Puerto Plata -->
-                <div class="card-container">
-                    <div class="destino-card">
-                        <img src="imagenes\puertoplata.jpg" alt="Puerto Plata">
+                <div class="destino-card">
+                    <img src="imagenes\puertoplata.jpg" alt="Puerto Plata">
+                    <div class="card-content">
                         <h3>Puerto Plata</h3>
                         <p>Conocida como la "Novia del Atlántico", Puerto Plata ofrece teleférico, playas hermosas y arquitectura victoriana con historia y cultura.</p>
                         <a href="puertoplata.html" class="ver-mas">Ver más</a>
@@ -82,9 +493,9 @@
                 </div>
 
                 <!-- Samaná -->
-                <div class="card-container">
-                    <div class="destino-card">
-                        <img src="imagenes\samana.webp" alt="Samaná">
+                <div class="destino-card">
+                    <img src="imagenes\samana.webp" alt="Samaná">
+                    <div class="card-content">
                         <h3>Samaná</h3>
                         <p>Una joya natural, Samaná se famosa por sus playas exóticas y avistamiento de ballenas. Rodeada de selvas y cascadas, ¡es un destino de ensueño!</p>
                         <a href="samana.html" class="ver-mas">Ver más</a>
@@ -92,22 +503,30 @@
                 </div>
             </div>
         </section>
+        
+        <section class="blank"></section>
     </main>
-
-     <section class="blank"> 
-     </section>
     
     <footer>
         <div class="footer-links">
-            <a href="sobre">Sobre nosotros</a> | 
-            <a href="contactos">Contactos</a> | 
-            <a href="mapa">Mapa de sitios</a>
+            <a href="sobre.html">Sobre nosotros</a>
+            <a href="contactos.html">Contactos</a>
+            <a href="mapa-autocomplete.html">Mapa de sitios</a>
+            <a href="politica.html">Política de privacidad</a>
+            <a href="terminos.html">Términos de uso</a>
         </div>
         <div class="footer-brand">
-            <img src="imagenes\conoce19.png" alt="ConoceRD Logo" class="footer-logo">
+            <img src="imagenes/conoce19.png" alt="ConoceRD Logo" class="footer-logo">
+        </div>
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+            <a href="#"><i class="fab fa-tiktok"></i></a>
         </div>
         <div class="footer-copyright">
-            <p>©2025 ConoceRD. All Rights Reserved</p>
+            <p>©2025 ConoceRD. Todos los derechos reservados | Santo Domingo, República Dominicana</p>
         </div>
     </footer>
 </body>
