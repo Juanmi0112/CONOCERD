@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ConoceRD - Mapa Interactivo</title>
+    <title>ConoceRD - Mapa Republica Dominicana</title>
     
     <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
@@ -77,27 +77,29 @@
             border-radius: 15px;
             margin-bottom: 30px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            background: linear-gradient(to right, #1a2a6c, #b21f1f, #fdbb2d);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
         }
         
-        .hero-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-        
-        .hero:hover .hero-img {
-            transform: scale(1.03);
+        .hero-content {
+            padding: 20px;
+            z-index: 2;
         }
         
         .hero-title {
-            position: absolute;
-            bottom: 30px;
-            left: 50px;
-            color: white;
             font-size: 2.5rem;
             text-shadow: 0 3px 10px rgba(0,0,0,0.8);
-            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            margin-bottom: 15px;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
         }
         
         .breadcrumb-section {
@@ -124,11 +126,9 @@
         
         .page-title {
             margin-top: 10px;
-            margin-left: 7.8rem;
             font-size: 1.8rem;
             color: #000000;
-            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-            text-align: left;
+            text-align: center;
             padding-left: 10px;
         }
         
@@ -445,6 +445,182 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
         
+        /* Nuevos estilos para la funcionalidad de rutas */
+        .route-controls {
+            background: #e3f2fd;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            border-left: 4px solid #2196f3;
+        }
+        
+        .route-controls h3 {
+            color: #0d47a1;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .route-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .route-form input, .route-form select {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 1rem;
+        }
+        
+        .route-form button {
+            background: #f7941d;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: background 0.3s;
+        }
+        
+        .route-form button:hover {
+            background: #e07d0d;
+        }
+        
+        .route-results {
+            background: #e8f5e9;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 15px;
+            border-left: 4px solid #4caf50;
+            display: none;
+        }
+        
+        .route-results.active {
+            display: block;
+        }
+        
+        .route-info {
+            font-size: 1rem;
+            margin: 10px 0;
+            line-height: 1.5;
+        }
+        
+        .route-info strong {
+            color: #1a2a6c;
+        }
+        
+        .point-selector {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .point-button {
+            flex: 1;
+            padding: 8px;
+            border: none;
+            border-radius: 5px;
+            background: #e0e0e0;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background 0.3s;
+        }
+        
+        .point-button.active {
+            background: #f7941d;
+            color: white;
+        }
+        
+        .route-modes {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .mode-btn {
+            flex: 1;
+            min-width: 80px;
+            padding: 8px;
+            background: #e0e0e0;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .mode-btn.active {
+            background: #f7941d;
+            color: white;
+        }
+        
+        .mode-btn i {
+            font-size: 1.2rem;
+        }
+        
+        .route-point {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px;
+            background: #f5f5f5;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        
+        .point-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .start-icon {
+            background: #4CAF50;
+        }
+        
+        .end-icon {
+            background: #F44336;
+        }
+        
+        .point-text {
+            flex: 1;
+            font-size: 0.9rem;
+        }
+        
+        .status-message {
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            text-align: center;
+            font-weight: bold;
+        }
+        
+        .status-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .status-error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
         
         /* Media Queries */
         @media (max-width: 1200px) {
@@ -507,8 +683,6 @@
             
             .hero-title {
                 font-size: 1.6rem;
-                bottom: 15px;
-                left: 15px;
             }
             
             .map-container {
@@ -523,8 +697,6 @@
             
             .hero-title {
                 font-size: 1.4rem;
-                bottom: 10px;
-                left: 10px;
             }
             
             #map {
@@ -533,6 +705,10 @@
             
             .featured-cities {
                 grid-template-columns: 1fr;
+            }
+            
+            .route-modes {
+                flex-direction: column;
             }
         }
     </style>
@@ -549,6 +725,11 @@
     </header>
     
     <main>
+        <section class="breadcrumb-section">
+            <div class="breadcrumb">
+                <a href="menu.html">Inicio</a> / <a href="#">Mapa</a> / Planificador de Rutas
+            </div>
+        </section>
     
         <section class="map-section">
             <div class="map-wrapper">
@@ -568,14 +749,64 @@
                 </div>
                 
                 <div class="result-card">
-                    <h3 class="result-title"><i class="fas fa-lightbulb"></i> Sugerencias Recientes</h3>
-                    <ul id="suggestions-list">
-                        <li>No hay sugerencias recientes</li>
-                    </ul>
+                    <h3 class="result-title"><i class="fas fa-route"></i> Planificador de Rutas</h3>
+                    <div class="route-controls">
+                        <div class="point-selector">
+                            <button id="start-point-btn" class="point-button">Punto de Inicio</button>
+                            <button id="end-point-btn" class="point-button">Punto de Destino</button>
+                        </div>
+                        
+                        <div class="route-point">
+                            <div class="point-icon start-icon">A</div>
+                            <div class="point-text" id="start-point-text">Selecciona un punto de inicio</div>
+                        </div>
+                        
+                        <div class="route-point">
+                            <div class="point-icon end-icon">B</div>
+                            <div class="point-text" id="end-point-text">Selecciona un punto de destino</div>
+                        </div>
+                        
+                        <div class="route-modes">
+                            <button class="mode-btn active" data-mode="drive">
+                                <i class="fas fa-car"></i>
+                                <span>Coche</span>
+                            </button>
+                            <button class="mode-btn" data-mode="motorcycle">
+                                <i class="fas fa-motorcycle"></i>
+                                <span>Moto</span>
+                            </button>
+                            <button class="mode-btn" data-mode="truck">
+                                <i class="fas fa-truck"></i>
+                                <span>Camion</span>
+                            </button>
+                            <button class="mode-btn" data-mode="bus">
+                                <i class="fas fa-bus"></i>
+                                <span>Bus</span>
+                            </button>
+                        </div>
+                        
+                        <button id="calculate-route" class="route-form-button">
+                            <i class="fas fa-route"></i> Calcular Ruta
+                        </button>
+                    </div>
+                    
+                    <div class="route-results" id="route-results">
+                        <h3 class="result-title"><i class="fas fa-info-circle"></i> Resultados de la Ruta</h3>
+                        <div class="route-info">
+                            <strong>Distancia:</strong> <span id="route-distance">-</span>
+                        </div>
+                        <div class="route-info">
+                            <strong>Tiempo estimado:</strong> <span id="route-time">-</span>
+                        </div>
+                        <div class="route-info">
+                            <strong>Modo de transporte:</strong> <span id="route-mode">-</span>
+                        </div>
+                        <div id="route-status" class="status-message"></div>
+                    </div>
                 </div>
                 
                 <div class="search-tips">
-                    <h3><i class="fas fa-search"></i> Consejos de Búsqueda</h3>
+                    <h3><i class="fas fa-lightbulb"></i> Consejos de Búsqueda</h3>
                     <ul>
                         <li>Busca ciudades, pueblos o lugares emblemáticos</li>
                         <li>Usa nombres completos para mejores resultados</li>
@@ -583,7 +814,36 @@
                         <li>Arrastra el marcador para ajustar la ubicación</li>
                     </ul>
                 </div>        
+            </div>
         </section>
+        
+        <section class="featured-cities">
+            <div class="city-card" data-city="Santo Domingo">
+                <i class="fas fa-city"></i>
+                <h3>Santo Domingo</h3>
+            </div>
+            <div class="city-card" data-city="La Romana">
+                <i class="fas fa-ship"></i>
+                <h3>La Romana</h3>
+            </div>
+            <div class="city-card" data-city="Santiago">
+                <i class="fas fa-city"></i>
+                <h3>Santiago</h3>
+            </div>
+            <div class="city-card" data-city="La Altagracia">
+                <i class="fas fa-umbrella-beach"></i>
+                <h3>La Altagracia</h3>
+            </div>
+            <div class="city-card" data-city="Puerto Plata">
+                <i class="fas fa-mountain"></i>
+                <h3>Puerto Plata</h3>
+            </div>
+            <div class="city-card" data-city="Samana">
+                <i class="fas fa-water"></i>
+                <h3>Samana</h3>
+            </div>
+        </section>
+        
         <section class="blank"></section>
     </main>
     
@@ -651,6 +911,9 @@
                     <h4>Leyenda</h4>
                     <div><i style="background: #36d867"></i> Resultado</div>
                     <div><i style="background: #fff351"></i> Sugerencia</div>
+                    <div><i style="background: #4CAF50"></i> Inicio</div>
+                    <div><i style="background: #F44336"></i> Destino</div>
+                    <div><i style="background: #2196F3; width: 100%; height: 4px; border-radius: 0"></i> Ruta</div>
                 `;
                 return div;
             };
@@ -678,12 +941,47 @@
                 popupAnchor: [0, -45]
             });
             
+            // Iconos para puntos de ruta
+            const startMarkerIcon = L.icon({
+                iconUrl: `https://api.geoapify.com/v1/icon/?type=awesome&shadowColor=%23fafafa&color=%234CAF50&scaleFactor=2&apiKey=${myAPIKey}`,
+                iconSize: [31, 46],
+                iconAnchor: [15.5, 42],
+                popupAnchor: [0, -45]
+            });
+
+            const endMarkerIcon = L.icon({
+                iconUrl: `https://api.geoapify.com/v1/icon/?type=awesome&shadowColor=%23fafafa&color=%23F44336&scaleFactor=2&apiKey=${myAPIKey}`,
+                iconSize: [31, 46],
+                iconAnchor: [15.5, 42],
+                popupAnchor: [0, -45]
+            });
+            
             // Referencias a elementos del DOM
             const fallbackSearch = document.getElementById('fallback-search');
             const addressResult = document.getElementById('address-result');
             const coordinatesResult = document.getElementById('coordinates-result');
             const bboxInfo = document.getElementById('bbox-info');
-            const suggestionsList = document.getElementById('suggestions-list');
+            const routeStatus = document.getElementById('route-status');
+            
+            // Variables para rutas
+            let startPoint = null;
+            let endPoint = null;
+            let startMarker = null;
+            let endMarker = null;
+            let routeLayer = null;
+            let currentRouteMode = "drive";
+            
+            // Elementos de interfaz para rutas
+            const startPointBtn = document.getElementById('start-point-btn');
+            const endPointBtn = document.getElementById('end-point-btn');
+            const startPointText = document.getElementById('start-point-text');
+            const endPointText = document.getElementById('end-point-text');
+            const calculateRouteBtn = document.getElementById('calculate-route');
+            const routeResults = document.getElementById('route-results');
+            const routeDistance = document.getElementById('route-distance');
+            const routeTime = document.getElementById('route-time');
+            const routeMode = document.getElementById('route-mode');
+            const modeButtons = document.querySelectorAll('.mode-btn');
             
             // Función para eliminar marcadores
             function removeMarkers() {
@@ -712,6 +1010,7 @@
             
             // Función para actualizar la lista de sugerencias
             function updateSuggestionsList(suggestions) {
+                const suggestionsList = document.getElementById('suggestions-list');
                 suggestionsList.innerHTML = '';
                 
                 if (!suggestions || !suggestions.length) {
@@ -751,8 +1050,23 @@
                                         <div style="min-width: 250px">
                                             <h3 style="margin: 0 0 10px 0; color: #2c3e50;">${result.display_name || 'Ubicación'}</h3>
                                             <p><strong>Coordenadas:</strong> ${result.lat}, ${result.lon}</p>
+                                            <div style="margin-top: 10px">
+                                                <button class="set-start" style="background: #4CAF50; color: white; border: none; padding: 5px 10px; border-radius: 3px; margin-right: 5px; cursor: pointer;">Establecer Inicio</button>
+                                                <button class="set-end" style="background: #F44336; color: white; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer;">Establecer Destino</button>
+                                            </div>
                                         </div>
                                     `).openPopup();
+                                    
+                                    // Eventos para establecer como punto de inicio/destino
+                                    document.querySelector('.set-start')?.addEventListener('click', () => {
+                                        setRoutePoint(result.lat, result.lon, result.display_name, true);
+                                        map.closePopup();
+                                    });
+                                    
+                                    document.querySelector('.set-end')?.addEventListener('click', () => {
+                                        setRoutePoint(result.lat, result.lon, result.display_name, false);
+                                        map.closePopup();
+                                    });
                                     
                                     // Actualizar panel
                                     showLocationInfo({
@@ -764,16 +1078,227 @@
                                     // Centrar mapa
                                     map.setView([result.lat, result.lon], 15);
                                 } else {
-                                    alert('No se encontraron resultados para esta búsqueda');
+                                    showRouteStatus('No se encontraron resultados para esta búsqueda', 'error');
                                 }
                             })
                             .catch(error => {
                                 console.error('Error en búsqueda:', error);
-                                alert('Error al buscar la dirección. Por favor intenta nuevamente.');
+                                showRouteStatus('Error al buscar la dirección. Por favor intenta nuevamente.', 'error');
                             });
                     }
                 }
             });
+            
+            // Función para calcular la ruta
+            function calculateRoute() {
+                if (!startPoint || !endPoint) {
+                    showRouteStatus('Por favor selecciona un punto de inicio y un destino', 'error');
+                    return;
+                }
+                
+                // Eliminar ruta anterior
+                if (routeLayer) {
+                    map.removeLayer(routeLayer);
+                    routeLayer = null;
+                }
+                
+                // Construir URL para la API de routing de Geoapify
+                const apiUrl = `https://api.geoapify.com/v1/routing?waypoints=${startPoint.lat},${startPoint.lon}|${endPoint.lat},${endPoint.lon}&mode=${currentRouteMode}&apiKey=${myAPIKey}`;
+                
+                // Mostrar mensaje de carga
+                routeResults.classList.add('active');
+                routeDistance.textContent = 'Calculando...';
+                routeTime.textContent = 'Calculando...';
+                routeMode.textContent = getTransportModeName(currentRouteMode);
+                showRouteStatus('Calculando ruta...', 'loading');
+                
+                // Llamar a la API de routing
+                fetch(apiUrl)
+                    .then(response => {
+                        if (!response.ok) {
+                            return response.json().then(err => { 
+                                throw new Error(err.message || 'Error en la solicitud'); 
+                            });
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data.features && data.features.length > 0) {
+                            const route = data.features[0];
+                            const properties = route.properties;
+                            
+                            // Mostrar resultados
+                            routeDistance.textContent = (properties.distance / 1000).toFixed(1) + ' km';
+                            routeTime.textContent = formatTime(properties.time);
+                            routeMode.textContent = getTransportModeName(currentRouteMode);
+                            
+                            // Dibujar la ruta en el mapa
+                            routeLayer = L.geoJSON(route, {
+                                style: {
+                                    color: '#2196F3',
+                                    weight: 6,
+                                    opacity: 0.8
+                                }
+                            }).addTo(map);
+                            
+                            // Ajustar el mapa para mostrar toda la ruta
+                            const bounds = routeLayer.getBounds();
+                            if (bounds.isValid()) {
+                                map.fitBounds(bounds, {
+                                    padding: [50, 50],
+                                    animate: true,
+                                    duration: 1
+                                });
+                            }
+                            
+                            showRouteStatus('Ruta calculada correctamente', 'success');
+                        } else {
+                            showRouteStatus('No se pudo calcular la ruta. Verifica los puntos seleccionados.', 'error');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error al calcular ruta:', error);
+                        routeDistance.textContent = 'Error';
+                        routeTime.textContent = 'No disponible';
+                        showRouteStatus('Error al calcular la ruta: ' + error.message, 'error');
+                    });
+            }
+            
+            // Función para mostrar estado de la ruta
+            function showRouteStatus(message, type) {
+                routeStatus.textContent = message;
+                routeStatus.className = 'status-message';
+                
+                if (type === 'success') {
+                    routeStatus.classList.add('status-success');
+                } else if (type === 'error') {
+                    routeStatus.classList.add('status-error');
+                } else if (type === 'loading') {
+                    routeStatus.style.background = '#fff3cd';
+                    routeStatus.style.color = '#856404';
+                    routeStatus.style.border = '1px solid #ffeeba';
+                }
+            }
+            
+            // Función para formatear tiempo (segundos a horas y minutos)
+            function formatTime(seconds) {
+                const hours = Math.floor(seconds / 3600);
+                const minutes = Math.floor((seconds % 3600) / 60);
+                
+                if (hours > 0) {
+                    return `${hours} h ${minutes} min`;
+                } else {
+                    return `${minutes} min`;
+                }
+            }
+            
+            // Función para obtener el nombre del modo de transporte
+            function getTransportModeName(mode) {
+                switch(mode) {
+                    case 'drive': return 'Coche';
+                    case 'motorcycle': return 'Moto';
+                    case 'truck': return 'Camión';
+                    case 'bus': return 'Autobús';
+                    default: return 'Coche';
+                }
+            }
+            
+            // Función para establecer un punto de ruta
+            function setRoutePoint(lat, lon, address, isStart) {
+                const point = { lat, lon, address };
+                
+                if (isStart) {
+                    startPoint = point;
+                    startPointText.textContent = address || `Punto de inicio (${lat.toFixed(6)}, ${lon.toFixed(6)})`;
+                    
+                    // Eliminar marcador anterior
+                    if (startMarker) {
+                        map.removeLayer(startMarker);
+                    }
+                    
+                    // Crear nuevo marcador
+                    startMarker = L.marker([lat, lon], {
+                        icon: startMarkerIcon,
+                        draggable: true
+                    }).addTo(map);
+                    
+                    // Evento al arrastrar marcador
+                    startMarker.on('dragend', function(e) {
+                        const newPos = e.target.getLatLng();
+                        startPoint = { lat: newPos.lat, lon: newPos.lng, address: '' };
+                        startPointText.textContent = `Punto de inicio (${newPos.lat.toFixed(6)}, ${newPos.lng.toFixed(6)})`;
+                    });
+                } else {
+                    endPoint = point;
+                    endPointText.textContent = address || `Punto de destino (${lat.toFixed(6)}, ${lon.toFixed(6)})`;
+                    
+                    // Eliminar marcador anterior
+                    if (endMarker) {
+                        map.removeLayer(endMarker);
+                    }
+                    
+                    // Crear nuevo marcador
+                    endMarker = L.marker([lat, lon], {
+                        icon: endMarkerIcon,
+                        draggable: true
+                    }).addTo(map);
+                    
+                    // Evento al arrastrar marcador
+                    endMarker.on('dragend', function(e) {
+                        const newPos = e.target.getLatLng();
+                        endPoint = { lat: newPos.lat, lon: newPos.lng, address: '' };
+                        endPointText.textContent = `Punto de destino (${newPos.lat.toFixed(6)}, ${newPos.lng.toFixed(6)})`;
+                    });
+                }
+                
+                // Si ambos puntos están definidos, centrar el mapa en el área
+                if (startPoint && endPoint) {
+                    const bounds = L.latLngBounds(
+                        [startPoint.lat, startPoint.lon],
+                        [endPoint.lat, endPoint.lon]
+                    );
+                    map.fitBounds(bounds, { padding: [50, 50] });
+                }
+            }
+            
+            // Eventos para establecer puntos de ruta
+            startPointBtn.addEventListener('click', function() {
+                startPointBtn.classList.add('active');
+                endPointBtn.classList.remove('active');
+                map.off('click');
+                
+                map.on('click', function(e) {
+                    setRoutePoint(e.latlng.lat, e.latlng.lng, '', true);
+                    startPointBtn.classList.remove('active');
+                });
+            });
+            
+            endPointBtn.addEventListener('click', function() {
+                endPointBtn.classList.add('active');
+                startPointBtn.classList.remove('active');
+                map.off('click');
+                
+                map.on('click', function(e) {
+                    setRoutePoint(e.latlng.lat, e.latlng.lng, '', false);
+                    endPointBtn.classList.remove('active');
+                });
+            });
+            
+            // Evento para calcular la ruta
+            calculateRouteBtn.addEventListener('click', calculateRoute);
+            
+            // Eventos para cambiar el modo de transporte
+            modeButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    modeButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    currentRouteMode = this.dataset.mode;
+                });
+            });
+            
+            // Establecer puntos de ejemplo (Santo Domingo y Santiago)
+            setRoutePoint(18.4861, -69.9312, "Santo Domingo, República Dominicana", true);
+            setRoutePoint(19.4517, -70.6970, "Santiago, República Dominicana", false);
             
             // Intentar cargar el plugin de búsqueda configurado para República Dominicana
             try {
@@ -803,8 +1328,23 @@
                                 <div style="min-width: 250px">
                                     <h3 style="margin: 0 0 10px 0; color: #2c3e50;">${address.formatted || address.name || 'Ubicación'}</h3>
                                     <p><strong>Coordenadas:</strong> ${address.lat.toFixed(6)}, ${address.lon.toFixed(6)}</p>
+                                    <div style="margin-top: 10px">
+                                        <button class="set-start" style="background: #4CAF50; color: white; border: none; padding: 5px 10px; border-radius: 3px; margin-right: 5px; cursor: pointer;">Establecer Inicio</button>
+                                        <button class="set-end" style="background: #F44336; color: white; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer;">Establecer Destino</button>
+                                    </div>
                                 </div>
                             `).openPopup();
+                            
+                            // Eventos para establecer como punto de inicio/destino
+                            document.querySelector('.set-start')?.addEventListener('click', () => {
+                                setRoutePoint(address.lat, address.lon, address.formatted, true);
+                                map.closePopup();
+                            });
+                            
+                            document.querySelector('.set-end')?.addEventListener('click', () => {
+                                setRoutePoint(address.lat, address.lon, address.formatted, false);
+                                map.closePopup();
+                            });
                             
                             // Actualizar panel de información
                             showLocationInfo(address);
@@ -873,24 +1413,6 @@
                 fallbackSearch.style.display = 'block';
                 alert('La búsqueda avanzada no está disponible. Usando modo básico.');
             }
-            
-            // Añadir un marcador de ejemplo para demostración
-            const sampleMarker = L.marker([18.4861, -69.9312], {
-                icon: resultMarkerIcon
-            }).addTo(map);
-            
-            sampleMarker.bindPopup(`
-                <div style="min-width: 250px">
-                    <h3 style="margin: 0 0 10px 0; color: #2c3e50;">Santo Domingo</h3>
-                    <p><strong>Capital de República Dominicana</strong></p>
-                    <p>Coordenadas: 18.4861, -69.9312</p>
-                </div>
-            `);
-            
-            // Actualizar el panel con información de ejemplo
-            addressResult.textContent = "Santo Domingo, República Dominicana";
-            coordinatesResult.textContent = "Coordenadas: 18.4861, -69.9312";
-            bboxInfo.textContent = "Área de visualización: 18.3861, -70.0312 a 18.5861, -69.8312";
             
             // Event listeners para ciudades destacadas
             document.querySelectorAll('.city-card').forEach(card => {
