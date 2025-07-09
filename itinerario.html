@@ -3,11 +3,387 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Itinerario de Viaje</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-    <link rel="stylesheet" href="mapa.css" />    
+    <title>ConoceRD - Confirmación de Ruta</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f8f8;
+            color: #333;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-img {
+            height: 70px;
+            width: auto;
+        }
+
+        .user-greeting {
+            font-size: 1.1rem;
+            color: #000000;
+            font-weight: bold;
+        }
+        
+        main {
+            flex: 1;
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .hero {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            background: linear-gradient(to right, #1a2a6c, #b21f1f, #fdbb2d);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+        }
+        
+        .hero-content {
+            padding: 20px;
+            z-index: 2;
+        }
+        
+        .hero-title {
+            font-size: 2.5rem;
+            text-shadow: 0 3px 10px rgba(0,0,0,0.8);
+            margin-bottom: 15px;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .breadcrumb-section {
+            margin-bottom: 30px;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .breadcrumb {
+            font-size: 0.9rem;
+            color: #f7941d;
+        }
+        
+        .breadcrumb a {
+            color: #f7941d;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .breadcrumb a:hover {
+            color: #e07d0d;
+            text-decoration: underline;
+        }
+        
+        .page-title {
+            margin-top: 10px;
+            font-size: 1.8rem;
+            color: #000000;
+            text-align: center;
+            padding-left: 10px;
+        }
+        
+        .divider {
+            height: 2px;
+            background: #f7941d;
+            margin: 30px 0;
+            border-radius: 2px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .confirmation-container {
+            background: #ffffff;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+            margin-bottom: 40px;
+            border: 1px solid #f0f0f0;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .confirmation-title {
+            text-align: center;
+            color: #1a2a6c;
+            font-size: 2rem;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .confirmation-icon {
+            font-size: 2.5rem;
+            color: #4CAF50;
+        }
+        
+        .data-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border-radius: 10px;
+            background: #f9f9f9;
+            border-left: 4px solid #f7941d;
+        }
+        
+        .data-section-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #1a2a6c;
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+        }
+        
+        .data-item {
+            display: flex;
+            margin-bottom: 15px;
+            padding: 12px 15px;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        .data-label {
+            flex: 0 0 180px;
+            font-weight: bold;
+            color: #0d47a1;
+        }
+        
+        .data-value {
+            flex: 1;
+        }
+        
+        .map-preview {
+            height: 300px;
+            background: #e9ecef;
+            border-radius: 10px;
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6c757d;
+            font-size: 1.2rem;
+            border: 2px dashed #adb5bd;
+        }
+        
+        .actions {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .action-btn {
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border: none;
+        }
+        
+        .print-btn {
+            background: #1a2a6c;
+            color: white;
+        }
+        
+        .edit-btn {
+            background: #f7941d;
+            color: white;
+        }
+        
+        .new-btn {
+            background: #4CAF50;
+            color: white;
+        }
+        
+        .action-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .action-btn:active {
+            transform: translateY(-1px);
+        }
+        
+        .footer-links {
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 25px;
+            font-size: 1.1rem;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+            font-weight: 500;
+            position: relative;
+            padding: 5px 0;
+        }
+        
+        .footer-links a:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: white;
+            transition: width 0.3s;
+        }
+        
+        .footer-links a:hover:after {
+            width: 100%;
+        }
+        
+        .footer-brand {
+            margin: 25px 0;
+        }
+        
+        .footer-logo {
+            height: 60px;
+            margin-bottom: 15px;
+            filter: brightness(0) invert(1);
+        }
+        
+        .footer-copyright {
+            margin-top: 35px;
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.9);
+        }
+        
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 25px;
+        }
+        
+        .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            color: #f7941d;
+            font-size: 1.3rem;
+            transition: all 0.3s;
+            background: white;
+            text-decoration: none !important;
+            border-bottom: none !important;
+        }
+        
+        .social-icons a:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        footer {
+            background: linear-gradient(to right, #f7941d, #e07d0d);
+            color: white;
+            padding: 50px 20px 25px;
+            text-align: center;
+            margin-top: 60px;
+        }
+        
+        @media (max-width: 768px) {
+            .confirmation-container {
+                padding: 25px;
+            }
+            
+            .data-item {
+                flex-direction: column;
+            }
+            
+            .data-label {
+                flex: 1;
+                margin-bottom: 5px;
+            }
+            
+            .actions {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .action-btn {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .confirmation-container {
+                padding: 20px 15px;
+            }
+            
+            .confirmation-title {
+                font-size: 1.7rem;
+                flex-direction: column;
+            }
+            
+            .hero {
+                height: 160px;
+            }
+            
+            .hero-title {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
 </head>
 <body>
+
     <header>
         <div class="header-logo">
             <a href="menu.html">
@@ -16,19 +392,184 @@
         </div>
         <div class="user-greeting">¡Hola, Visitante!</div>
     </header>
+    
+    <main>
+        <section class="breadcrumb-section">
+            <div class="breadcrumb">
+                <a href="menu.html">Inicio</a> / <a href="mapa-autocomplete.html">Planificador de Rutas</a> / <a href="itinerario.html">Confirmacion de Ruta</a>
+            </div>
+            <h1 class="page-title">Confirmación de Ruta Guardada</h1>
+        </section>
+        
+        <div class="divider"></div>
+        
+        <div class="confirmation-container">
+            <div class="confirmation-title">
+                <i class="fas fa-check-circle confirmation-icon"></i>
+                <span>¡Ruta Guardada Exitosamente!</span>
+            </div>
+            
+            <div class="data-section">
+                <h2 class="data-section-title">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Ubicación Seleccionada</span>
+                </h2>
+                
+                <div class="data-item">
+                    <div class="data-label">Nombre:</div>
+                    <div class="data-value" id="location-name">Parque Nacional del Este</div>
+                </div>
+                
+                <div class="data-item">
+                    <div class="data-label">Dirección:</div>
+                    <div class="data-value" id="location-address">Carretera La Romana - Bayahibe, La Altagracia</div>
+                </div>
+                
+                <div class="data-item">
+                    <div class="data-label">Coordenadas:</div>
+                    <div class="data-value" id="location-coords">18.3686° N, 68.8361° W</div>
+                </div>
+            </div>
+            
+            <div class="data-section">
+                <h2 class="data-section-title">
+                    <i class="fas fa-route"></i>
+                    <span>Planificador de Ruta</span>
+                </h2>
+                
+                <div class="data-item">
+                    <div class="data-label">Punto de inicio:</div>
+                    <div class="data-value" id="start-point">Santo Domingo, Distrito Nacional</div>
+                </div>
+                
+                <div class="data-item">
+                    <div class="data-label">Punto de destino:</div>
+                    <div class="data-value" id="end-point">Parque Nacional del Este, La Altagracia</div>
+                </div>
+                
+                <div class="data-item">
+                    <div class="data-label">Distancia:</div>
+                    <div class="data-value" id="route-distance">125 km</div>
+                </div>
+                
+                <div class="data-item">
+                    <div class="data-label">Tiempo estimado:</div>
+                    <div class="data-value" id="route-time">2 horas 15 minutos</div>
+                </div>
+            </div>
+            
+            <div class="data-section">
+                <h2 class="data-section-title">
+                    <i class="fas fa-car"></i>
+                    <span>Modo de Transporte</span>
+                </h2>
+                
+                <div class="data-item">
+                    <div class="data-label">Tipo de vehículo:</div>
+                    <div class="data-value" id="transport-mode">Automóvil particular</div>
+                </div>
+                
+                <div class="data-item">
+                    <div class="data-label">Tiempo estimado:</div>
+                    <div class="data-value" id="transport-time">2 horas 15 minutos</div>
+                </div>
+                
+                <div class="data-item">
+                    <div class="data-label">Recomendaciones:</div>
+                    <div class="data-value" id="transport-tips">Llevar suficiente agua, combustible y verificar estado del vehículo antes de salir</div>
+                </div>
+            </div>
+            
+            <div class="map-preview">
+                <i class="fas fa-map-marked-alt" style="font-size: 3rem; margin-right: 15px;"></i>
+                Vista previa del mapa de la ruta
+            </div>
+            
+            <div class="actions">
+                <button class="action-btn print-btn">
+                    <i class="fas fa-print"></i>
+                    Imprimir Ruta
+                </button>
+                
+                <button class="action-btn edit-btn">
+                    <i class="fas fa-edit"></i>
+                    Editar Ruta
+                </button>
+                
+                <button class="action-btn new-btn">
+                    <i class="fas fa-plus-circle"></i>
+                    Crear Nueva Ruta
+                </button>
+            </div>
+        </div>
+        
+        <div class="divider"></div>
+    </main>
+    
     <footer>
         <div class="footer-links">
-            <a href="#sobre">Sobre nosotros</a> | 
-            <a href="#contactos">Contactos</a> | 
-            <a href="#mapa">Mapa de sitios</a>
+            <a href="sobre.html">Sobre nosotros</a>
+            <a href="contactos.html">Contactos</a>
+            <a href="mapa-autocomplete.html">Mapa de sitios</a>
+            <a href="politica.html">Política de privacidad</a>
+            <a href="terminos.html">Términos de uso</a>
         </div>
         <div class="footer-brand">
             <img src="imagenes/conoce19.png" alt="ConoceRD Logo" class="footer-logo">
         </div>
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+            <a href="#"><i class="fab fa-tiktok"></i></a>
+        </div>
         <div class="footer-copyright">
-            <p>©2025 ConoceRD. All Rights Reserved</p>
+            <p>©2025 ConoceRD. Todos los derechos reservados | Santo Domingo, República Dominicana</p>
         </div>
     </footer>
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+    <script>
+        // Leer parámetros de la URL
+        document.addEventListener('DOMContentLoaded', function() {
+            const params = new URLSearchParams(window.location.search);
+            
+            // Obtener datos de los parámetros
+            const ubicacion = params.get('ubicacion') || 'Ubicación no especificada';
+            const direccion = params.get('direccion') || 'Dirección no especificada';
+            const coordenadas = params.get('coordenadas') || 'Coordenadas no especificadas';
+            const inicio = params.get('inicio') || 'Punto de inicio no especificado';
+            const destino = params.get('destino') || 'Punto de destino no especificado';
+            const distancia = params.get('distancia') || 'Distancia no calculada';
+            const tiempo = params.get('tiempo') || 'Tiempo no calculado';
+            const modo = params.get('modo') || 'Modo de transporte no especificado';
+            const consejos = params.get('consejos') || 'Recomendaciones no disponibles';
+            
+            // Mostrar los datos en la página
+            document.getElementById('location-name').textContent = ubicacion;
+            document.getElementById('location-address').textContent = direccion;
+            document.getElementById('location-coords').textContent = coordenadas;
+            document.getElementById('start-point').textContent = inicio;
+            document.getElementById('end-point').textContent = destino;
+            document.getElementById('route-distance').textContent = distancia;
+            document.getElementById('route-time').textContent = tiempo;
+            document.getElementById('transport-mode').textContent = modo;
+            document.getElementById('transport-time').textContent = tiempo;
+            document.getElementById('transport-tips').textContent = consejos;
+            
+            // Botones de acción
+            document.querySelector('.print-btn').addEventListener('click', function() {
+                alert('Función de impresión activada. En una aplicación real, esto generaría un PDF de la ruta.');
+            });
+            
+            document.querySelector('.edit-btn').addEventListener('click', function() {
+                window.location.href = 'mapa-autocomplete.html';
+            });
+            
+            document.querySelector('.new-btn').addEventListener('click', function() {
+                window.location.href = 'mapa-autocomplete.html';
+            });
+        });
+    </script>
 </body>
 </html>

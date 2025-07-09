@@ -625,6 +625,34 @@
             color: #721c24;
             border: 1px solid #f5c6cb;
         }
+
+        /* Botón de guardar ruta */
+        .save-route-btn {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: background 0.3s;
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+        }
+        
+        .save-route-btn:hover {
+            background: #3e8e41;
+        }
+        
+        .save-route-btn:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+        }
         
         /* Media Queries */
         @media (max-width: 1200px) {
@@ -755,7 +783,7 @@
     <main>
         <section class="breadcrumb-section">
             <div class="breadcrumb">
-                <a href="menu.html">Inicio</a> / <a href="#">Mapa</a> / Planificador de Rutas
+                <a href="menu.html">Inicio</a> / <a href="mapa-autocomplete.html">Planificador de Rutas</a>
             </div>
         </section>
     
@@ -839,6 +867,11 @@
                             <strong>Modo de transporte:</strong> <span id="route-mode">-</span>
                         </div>
                         <div id="route-status" class="status-message"></div>
+                        
+                        <!-- Botón para guardar la ruta -->
+                        <button id="save-route" class="save-route-btn" disabled>
+                            <i class="fas fa-save"></i> Guardar Ruta
+                        </button>
                     </div>
                 </div>
                 
@@ -977,6 +1010,7 @@
             const coordinatesResult = document.getElementById('coordinates-result');
             const bboxInfo = document.getElementById('bbox-info');
             const routeStatus = document.getElementById('route-status');
+            const saveRouteBtn = document.getElementById('save-route');
             
             // Variables para rutas
             let startPoint = null;
@@ -1155,6 +1189,9 @@
                             routeTime.textContent = formatTime(properties.time);
                             routeMode.textContent = getTransportModeName(currentRouteMode);
                             
+                            // Habilitar botón de guardar
+                            saveRouteBtn.disabled = false;
+                            
                             // Dibujar la ruta en el mapa
                             routeLayer = L.geoJSON(route, {
                                 style: {
@@ -1201,6 +1238,57 @@
                     routeStatus.style.color = '#856404';
                     routeStatus.style.border = '1px solid #ffeeba';
                 }
+            }
+            
+            // Función para guardar la ruta y redirigir
+            function saveRoute() {
+                // Verificar que tenemos los datos necesarios
+                if (!startPoint || !endPoint || !currentRouteMode) {
+                    showRouteStatus('Por favor, calcula una ruta primero', 'error');
+                    return;
+                }
+                
+                // Recolectar datos
+                const ubicacion = addressResult.textContent;
+                const coordenadas = coordinatesResult.textContent.replace('Coordenadas: ', '');
+                const inicio = startPointText.textContent;
+                const destino = endPointText.textContent;
+                const distancia = routeDistance.textContent;
+                const tiempo = routeTime.textContent;
+                const modo = getTransportModeName(currentRouteMode);
+                
+                // Consejos según el modo de transporte
+                let consejos = '';
+                switch(currentRouteMode) {
+                    case 'drive':
+                        consejos = 'Llevar suficiente agua, combustible y verificar estado del vehículo antes de salir';
+                        break;
+                    case 'motorcycle':
+                        consejos = 'Usar casco, verificar presión de llantas y llevar equipo de protección';
+                        break;
+                    case 'truck':
+                        consejos = 'Verificar carga, estado de los frenos y tener en cuenta las restricciones de tránsito';
+                        break;
+                    case 'bus':
+                        consejos = 'Verificar horarios, llevar efectivo para el pasaje y estar en la parada a tiempo';
+                        break;
+                    default:
+                        consejos = 'Llevar suficiente agua, combustible y verificar estado del vehículo antes de salir';
+                }
+                
+                // Construir URL con parámetros
+                const params = new URLSearchParams();
+                params.append('ubicacion', ubicacion);
+                params.append('coordenadas', coordenadas);
+                params.append('inicio', inicio);
+                params.append('destino', destino);
+                params.append('distancia', distancia);
+                params.append('tiempo', tiempo);
+                params.append('modo', modo);
+                params.append('consejos', consejos);
+                
+                // Redirigir a la página de confirmación
+                window.location.href = 'itinerario.html?' + params.toString();
             }
             
             // Función para formatear tiempo (segundos a horas y minutos)
@@ -1309,6 +1397,9 @@
             
             // Evento para calcular la ruta
             calculateRouteBtn.addEventListener('click', calculateRoute);
+            
+            // Evento para guardar la ruta
+            saveRouteBtn.addEventListener('click', saveRoute);
             
             // Eventos para cambiar el modo de transporte
             modeButtons.forEach(button => {
